@@ -13,6 +13,10 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="myCSS.css" />
     <style>
+        body {
+            background-image: url('bkg.png')
+        }
+
         .carousel-item {
             z-index: -100;
             height: 640px;
@@ -43,7 +47,7 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-dark fixed-top">
+    <nav class="navbar bg-body-tertiary navbar-expand-lg fixed-top border-bottom">
         <div class="container">
             <a class="navbar-brand" href="index.html" tabindex="NBA"><img src="NBA_logoH.png" height="48" /></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,18 +55,18 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" aria-current="page" href="arenas.html"><i class="fa fa-soccer-ball text-warning"></i><span class="text-warning"> Arenas</span></a></li>
-                    <li class="nav-item"><a class="nav-link" aria-current="page" href="players.html"><i class="fa fa-user text-primary"></i><span class="text-primary"> Players</span></a></li>
-                    <li class="nav-item"><a class="nav-link" aria-current="page" href="teams.html"><i class="fa fa-flag text-danger"></i><span class="text-danger"> Teams</span></a></li>
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="arenas.html"><i class="fa-regular fa-soccer-ball text-warning"></i><span class="text-warning"> Arenas</span></a></li>
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="players.html"><i class="fa-regular fa-user text-primary"></i><span class="text-primary"> Players</span></a></li>
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="teams.html"><i class="fa-regular fa-flag text-danger"></i><span class="text-danger"> Teams</span></a></li>
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="states.html"><i class="fa fa-map-marker text-success"></i><span class="text-success"> States</span></a></li>
-                    <li class="nav-item"><a class="nav-link" aria-current="page" href="seasons.html"><i class="fa fa-bookmark text-info "></i><span class="text-info"> Seasons</span></a></li>
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="seasons.html"><i class="fa-regular fa-bookmark text-info "></i><span class="text-info"> Seasons</span></a></li>
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="xxx.html"><i class="fa fa-magic" title="The party continues..."></i> &middot;&middot;&middot;</a></li>
                 </ul>
             </div>
         </div>
     </nav>
     <!-- Working Area -->
-    <div class="container-xl">
+    <div class="container-xl pt-2">
         <div id="myCarousel" class="carousel slide carousel-fade mb-5" data-bs-ride="carousel" data-bs-interval="10000">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" aria-label="Slide 1" class="active" aria-current="true"></button>
@@ -124,7 +128,7 @@
         </p>
     </div>
     <!-- End of Working Area -->
-    <nav class="navbar navbar-dark bg-dark fixed-bottom">
+    <nav class="navbar navbar-dark bg-body-tertiary fixed-bottom">
         <div class="container small">
             <div class="navbar-text">&copy;  Introdução às Tecnologias Web - 2023/24</div>
             <div class="navbar-text">Made with <i class="fa-solid fa-heart text-danger"></i> by Miguel Neto and Tiago Quintas.</div>
