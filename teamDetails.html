@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>ITW 2023/24 - NBA State Details</title>
+    <title>ITW 2023/24 - NBA Team Details</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap">
@@ -34,24 +34,62 @@
     </nav>
     <!-- Work Area-->
     <div class="container pt-4">
+        <!-- ko if: Name() == null -->
         <div class="py-2 border-bottom mb-3">
-            <h2 data-bind="text:Name() +' [' + Id() + ']'"></h2>
+            <h2><span data-bind="text: 'Team - Details'"></span><small class="float-end" data-bind="text: 'ID ' + Id()"></small></h2>
         </div>
-        <!-- ko if:Name().length > 0 -->
-        <div class="row border-bottom g-2">
-            <div class="col-2">Id</div><div class="col-10" data-bind="text: Id"></div>
-        </div>
-        <div class="row border-bottom g-2">
-            <div class="col-2">Name</div><div class="col-10" data-bind="text: Name"></div>
-        </div>
-        <div class="row border-bottom g-2" data-bind="visible: Flag() != '' && Flag() != null">
-            <div class="col-2">Flag</div><div class="small col-10">
-                <img class="img-thumbnail col-4" data-bind="attr:{src: Flag}"><br />
-                <i class="fa fa-link"></i> [<a class="link text-decoration-none" data-bind="attr: { href: Flag }, text: Flag" target="_blank"></a>]
-            </div>
+        <div class="row g-2">
+            <div class="col-2">Acronym</div><div class="col-10" data-bind="text:Acronym"></div>
         </div>
         <!-- /ko -->
-        <a href="./states.html" class="btn btn-default btn-sm small"><i class="fa fa-list"></i> Back to List</a>
+        <!-- ko if: Name() != null -->
+        <div class="py-2 border-bottom mb-3">
+            <h2><span data-bind="text: Name() + ' - Details'"></span><small class="float-end" data-bind="text: 'ID ' + Id()"></small></h2>
+        </div>
+        <div class="row g-2 mb-1">
+            <div class="col-2">Acronym</div><div class="col-10" data-bind="text:Acronym"></div>
+        </div>
+        <!-- ko if:Name().length > 0 -->
+        <div class="row g-2 mb-1">
+            <div class="col-2">Name</div><div class="col-10" data-bind="text:Name"></div>
+        </div>
+        <div class="row g-2 mb-1">
+            <div class="col-2">Conference</div>
+            <div class="col-10">
+                <span data-bind="text: ConferenceName"></span><sup data-bind="text: ' ID ' + ConferenceId()"></sup>
+            </div>
+        </div>
+        <div class="row g-2 mb-1">
+            <div class="col-2">Division</div><div class="col-10"><span data-bind="text: DivisionName"></span><sup data-bind="text: ' ID ' + DivisionId()"></sup></div>
+        </div>
+        <div class="row g-2 mb-1">
+            <div class="col-2">State</div>
+            <div class="col-10">
+                <a class="nav-link" data-bind="attr: {href: './stateDetails.html?id=' + StateId()}" target="_blank">
+                    <span data-bind="text: StateName"></span><sup data-bind="text: ' ' + StateId()"></sup>
+                </a>
+            </div>
+        </div>
+        <div class="row g-2 mb-1">
+            <div class="col-2">City</div><div class="col-10" data-bind="text: City"></div>
+        </div>
+        <div class="row g-2 mb-1">
+            <div class="col-2">History</div><div class="col-10" data-bind="text: History"></div>
+        </div>
+        <div class="row g-2" data-bind="visible: Logo() != '' && Logo() != null">
+            <div class="col-2"></div><div class="small col-10">
+                <img class="img-thumbnail col-4" data-bind="attr:{src: Logo}"><br />
+                <i class="fa fa-link"></i> [<a class="link text-decoration-none" data-bind="attr: { href: Logo }, text: Logo" target="_blank"></a>]
+            </div>
+        </div>
+        <div class="row mt-3 border-bottom"></div>
+        <!-- /ko -->
+        <!-- /ko -->
+        <!-- ko if: Name() == null -->
+        <!-- /ko -->
+        <div class="text-center mt-4">
+            <a href="./teams.html" class="btn bg-body-tertiary"><i class="fa fa-list"></i> Back to List</a>
+        </div>
     </div>
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -69,16 +107,16 @@
         </div>
     </div>
     <!-- End of Work Area -->
-    <nav class="navbar navbar-dark bg-dark fixed-bottom">
+    <nav class="navbar fixed-bottom border-top bg-body-tertiary">
         <div class="container small">
-            <div class="navbar-text">&copy;  Introdução as Tecnologias Web - 2023/24</div>
-            <div class="navbar-text">Made with <i class="fa fa-heart-o text-danger"></i> for U by <a href="mailto:jsp@ua.pt" class="text-decoration-none text-muted">jsp@ua.pt</a>.</div>
+            <div class="navbar-text">&copy;  Introdução às Tecnologias Web - 2023/24</div>
+            <div class="navbar-text">Made with <i class="fa-solid fa-heart text-danger"></i> by Miguel Neto and Tiago Quintas.</div>
             <div class="navbar-nav">
                 <div class="nav-item text-end"><a href="https://www.ua.pt" class="nav-link">Universidade de Aveiro</a></div>
             </div>
         </div>
     </nav>
-    <script src="stateDetails.js"></script>
+    <script src="teamDetails.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js'></script>
 </body>

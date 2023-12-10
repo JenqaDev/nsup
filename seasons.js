@@ -3,10 +3,8 @@ var vm = function () {
     console.log('ViewModel initiated...');
     //---Variáveis locais
     var self = this;
-    self.baseUri = ko.observable('http://192.168.160.58/NBA/API/States');
-    self.teams = ko.observable('http://192.168.160.58/NBA/API/Teams/Search')
-    self.displayName = 'NBA States List';
-    self.countTeams = ko.observable(0);
+    self.baseUri = ko.observable('http://192.168.160.58/NBA/API/Seasons');
+    self.displayName = 'NBA Seasons List';
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
     self.records = ko.observableArray([]);
@@ -46,7 +44,7 @@ var vm = function () {
 
     //--- Page Events
     self.activate = function (id) {
-        console.log('CALL: getStates...');
+        console.log('CALL: getSeasons...');
         var composedUri = self.baseUri() + "?page=" + id + "&pageSize=" + self.pagesize();
         ajaxHelper(composedUri, 'GET').done(function (data) {
             console.log(data);
@@ -58,7 +56,7 @@ var vm = function () {
             self.pagesize(data.PageSize)
             self.totalPages(data.TotalPages);
             self.totalRecords(data.TotalRecords);
-            console.log(data.TotalRecords);
+            console.log(data.Records);
             //self.SetFavourites();
         });
         //console.log('CALL: countTeams...');
@@ -133,9 +131,52 @@ var vm = function () {
 
 $(document).ready(function () {
     console.log("ready!");
-    ko.applyBindings(new vm());
+    var nvm = new vm()
+    ko.applyBindings(nvm);
+
+    var favorites = localStorage.getItem("favorites")
+    for (var fav in favorites.Id){
+        // CHECKAR SE JÁ EXISTE PARA FICAR VERMELHO QUANDO ABRES
+        // AMANHÃ
+    }
+    $("[id^='favourite_']").attr('class', )
+
+    $(document).on('click', "[id^='favourite_']", event => {
+        var season = $(event.target).parents()[1].firstElementChild.innerHTML;
+        
+        var fid = 'favourite_' + season
+        var favorites = localStorage.getItem("favorites");
+        
+        if (!favorites) {
+            console.log("adding fav")
+            localStorage.setItem("favorites", JSON.stringify({Id:[]}));
+            favorites = JSON.parse(localStorage.getItem("favorites"));    
+        }else{
+            favorites = JSON.parse(favorites);
+        }
+
+        if (favorites["Id"].includes(season)){
+            console.log("removing " + season)
+            $('#'+fid + ' i').removeClass("fa-heart text-danger");
+            $('#'+fid + ' i').addClass("fa-heart-o");
+            for (var key in favorites["Id"]) {
+                if (favorites["Id"][key] == season) delete favorites["Id"][key];
+            }
+        }else{
+            $('#'+fid + ' i').removeClass("fa-heart-o");
+            $('#'+fid + ' i').addClass("fa-heart text-danger");
+            favorites.Id.push(season);
+            console.log("adding " + season)
+        }
+
+        localStorage.setItem("favorites", JSON.stringify(favorites));
+        console.log(favorites)
+    });
 });
 
 $(document).ajaxComplete(function (event, xhr, options) {
     $("#myModal").modal('hide');
-})
+});
+
+
+

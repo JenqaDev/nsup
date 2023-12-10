@@ -3,9 +3,8 @@ var vm = function () {
     console.log('ViewModel initiated...');
     //---Variáveis locais
     var self = this;
-    self.baseUri = ko.observable('http://192.168.160.58/NBA/API/States');
-    self.teams = ko.observable('http://192.168.160.58/NBA/API/Teams/Search')
-    self.displayName = 'NBA States List';
+    self.baseUri = ko.observable('http://192.168.160.58/NBA/API/Teams');
+    self.displayName = 'NBA Teams List';
     self.countTeams = ko.observable(0);
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
@@ -58,7 +57,7 @@ var vm = function () {
             self.pagesize(data.PageSize)
             self.totalPages(data.TotalPages);
             self.totalRecords(data.TotalRecords);
-            console.log(data.TotalRecords);
+            console.log(data.Records);
             //self.SetFavourites();
         });
         //console.log('CALL: countTeams...');
