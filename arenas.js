@@ -124,6 +124,38 @@ var vm = function () {
 $(document).ready(function () {
     console.log("ready!");
     ko.applyBindings(new vm());
+    
+
+
+    if (localStorage.getItem('bs-mode') != null){
+        if (localStorage.getItem('bs-mode') == 'light'){
+            $('#ld-toggle i').removeClass("fa-toggle-off").addClass("fa-toggle-on")
+        }
+        $("html").attr('data-bs-theme', localStorage.getItem('bs-mode'))
+    }
+
+    $('#ld-dark').click(function() {
+        localStorage.setItem('bs-mode', 'dark');
+        $("html").attr('data-bs-theme', localStorage.getItem('bs-mode'))
+    })
+
+    $('#ld-light').click(function() {
+        localStorage.setItem('bs-mode', 'light');
+        $("html").attr('data-bs-theme', localStorage.getItem('bs-mode'))
+    })
+
+    $('#ld-toggle').click(function() {
+        var theme = $("html").attr("data-bs-theme")
+        if (theme == "dark") {
+            localStorage.setItem('bs-mode', 'light');
+            $("html").attr('data-bs-theme', localStorage.getItem('bs-mode'))
+            $('#ld-toggle i').removeClass("fa-toggle-off").addClass("fa-toggle-on")
+        }else{ 
+            localStorage.setItem('bs-mode', 'dark');
+            $("html").attr('data-bs-theme', localStorage.getItem('bs-mode'))
+            $('#ld-toggle i').removeClass("fa-toggle-on").addClass("fa-toggle-off")
+        }
+    })
 });
 
 $(document).ajaxComplete(function (event, xhr, options) {

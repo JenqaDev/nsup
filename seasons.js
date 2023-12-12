@@ -57,15 +57,7 @@ var vm = function () {
             self.totalPages(data.TotalPages);
             self.totalRecords(data.TotalRecords);
             console.log(data.Records);
-            //self.SetFavourites();
         });
-        //console.log('CALL: countTeams...');
-        //var teamCount = self.teams() + "?q=" + "StateId";
-        //ajaxHelper(teamCount, 'GET').done(function (data) {
-            //console.log(data)
-        //    hideLoading();
-        //});
-        //console.log(teamCount);
     };
 
     //--- Internal functions
@@ -131,15 +123,8 @@ var vm = function () {
 
 $(document).ready(function () {
     console.log("ready!");
-    var nvm = new vm()
+    var nvm = new vm();
     ko.applyBindings(nvm);
-
-    var favorites = localStorage.getItem("favorites")
-    for (var fav in favorites.Id){
-        // CHECKAR SE JÁ EXISTE PARA FICAR VERMELHO QUANDO ABRES
-        // AMANHÃ
-    }
-    $("[id^='favourite_']").attr('class', )
 
     $(document).on('click', "[id^='favourite_']", event => {
         var season = $(event.target).parents()[1].firstElementChild.innerHTML;
@@ -168,14 +153,54 @@ $(document).ready(function () {
             favorites.Id.push(season);
             console.log("adding " + season)
         }
-
+        
         localStorage.setItem("favorites", JSON.stringify(favorites));
-        console.log(favorites)
     });
+
+    if (localStorage.getItem('bs-mode') != null){
+        if (localStorage.getItem('bs-mode') == 'light'){
+            $('#ld-toggle i').removeClass("fa-toggle-off").addClass("fa-toggle-on")
+        }
+        $("html").attr('data-bs-theme', localStorage.getItem('bs-mode'))
+    }
+
+    $('#ld-dark').click(function() {
+        localStorage.setItem('bs-mode', 'dark');
+        $("html").attr('data-bs-theme', localStorage.getItem('bs-mode'))
+    })
+
+    $('#ld-light').click(function() {
+        localStorage.setItem('bs-mode', 'light');
+        $("html").attr('data-bs-theme', localStorage.getItem('bs-mode'))
+    })
+
+    $('#ld-toggle').click(function() {
+        var theme = $("html").attr("data-bs-theme")
+        if (theme == "dark") {
+            localStorage.setItem('bs-mode', 'light');
+            $("html").attr('data-bs-theme', localStorage.getItem('bs-mode'))
+            $('#ld-toggle i').removeClass("fa-toggle-off").addClass("fa-toggle-on")
+        }else{ 
+            localStorage.setItem('bs-mode', 'dark');
+            $("html").attr('data-bs-theme', localStorage.getItem('bs-mode'))
+            $('#ld-toggle i').removeClass("fa-toggle-on").addClass("fa-toggle-off")
+        }
+    })
 });
 
 $(document).ajaxComplete(function (event, xhr, options) {
     $("#myModal").modal('hide');
+    
+    var favorites = localStorage.getItem("favorites")
+    favorites = JSON.parse(favorites);
+    console.log(favorites["Id"])
+    for (var fv in favorites["Id"]){
+        if (favorites["Id"][fv] != null){
+            item = 'favourite_'+favorites["Id"][fv]
+            $('#' + item + ' i').addClass("fa-heart text-danger").removeClass("fa-heart-o");
+            console.log("found " + item)
+        }
+    }
 });
 
 

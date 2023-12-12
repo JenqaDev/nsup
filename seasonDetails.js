@@ -3,25 +3,23 @@ var vm = function () {
     console.log('ViewModel initiated...');
     //---Variáveis locais
     var self = this;
-    self.baseUri = ko.observable('http://192.168.160.58/NBA/API/States/');
-    self.displayName = 'NBA State Details';
+    self.baseUri = ko.observable('http://192.168.160.58/NBA/API/Seasons/');
+    self.displayName = 'NBA Season Details';
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
     //--- Data Record
-    self.Id = ko.observable('');
-    self.Name = ko.observable('');
-    self.Flag = ko.observable('');
+    self.Id = ko.observable(0);
+    self.Season = ko.observable('');
 
     //--- Page Events
     self.activate = function (id) {
-        console.log('CALL: getState...');
+        console.log('CALL: getSeason...');
         var composedUri = self.baseUri() + id;
         ajaxHelper(composedUri, 'GET').done(function (data) {
             console.log(data);
             hideLoading();
             self.Id(data.Id);
-            self.Name(data.Name);
-            self.Flag(data.Flag);
+            self.Season(data.Season);
         });
     };
 
