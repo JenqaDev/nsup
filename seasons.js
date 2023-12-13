@@ -59,7 +59,7 @@ var vm = function () {
             console.log(data.Records);
         });
     };
-
+    
     //--- Internal functions
     function ajaxHelper(uri, method, data) {
         self.error(''); // Clear error message
@@ -127,17 +127,16 @@ $(document).ready(function () {
     ko.applyBindings(nvm);
 
     $(document).on('click', "[id^='favourite_']", event => {
-        var season = $(event.target).parents()[1].firstElementChild.innerHTML;
+        var id = $(event.target).parents()[1].firstElementChild.innerHTML;
         
-        var fid = 'favourite_' + season
+        var fid = 'favourite_' + id
         var favorites = localStorage.getItem("favorites");
         
         if (!favorites) {
             console.log("adding fav")
-            localStorage.setItem("favorites", JSON.stringify({Id:[]}));
-            favorites = JSON.parse(localStorage.getItem("favorites"));    
+            localStorage.setItem("season_fav_" + id, id);
         }else{
-            favorites = JSON.parse(favorites);
+            localStorage.removeItem("season_fav_" + id, id);
         }
 
         if (favorites["Id"].includes(season)){

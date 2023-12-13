@@ -58,7 +58,12 @@
     <div class="container pt-4">
         <div class="border-bottom py-2 mb-2 row">
             <h2 class="col-4" data-bind="text:displayName"></h2>
-            <div class="col-7"></div>
+            <div class="col-1"></div>
+            <form class="col-4 d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Go</button>
+            </form>
+            <div class="col-2"></div>
             <button type="button" class="float-end btn btn-default col-1" data-bs-toggle="modal" data-bs-target="#favorites">Favorites</button>
         </div>
         <!-- ko if:records().length > 0 -->
@@ -94,7 +99,6 @@
                 <tr>
                     <th scope="col">Id</th>
                     <th scope="col">Season</th>
-                    <th scope="col">Players</th>
                     <th></th>
                 </tr>
             </thead>
@@ -102,7 +106,6 @@
                 <tr>
                     <td class="align-middle" data-bind="text:Id"></td>
                     <td class="align-middle" data-bind="text:Season"></td>
-                    <td class="align-middle" data-bind="text:''"></td>
                     <td class="text-end">
                         <a class="btn btn-default btn-light btn-xs" data-bind="attr: { href:'./seasonDetails.html?id=' + Id }"><i class="fa fa-eye" title="Show details"></i></a>
                         <button class="btn btn-default btn-xs" data-bind="attr : { 'id': 'favourite_' + Id }" title="Add to favorites"><i class="fa fa-heart-o ignore-clicks"></i></button>
