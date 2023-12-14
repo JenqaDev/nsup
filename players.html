@@ -13,7 +13,7 @@
 
     <script src="https://kit.fontawesome.com/8988c027b3.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="myCSS.css" />
+    <link rel="stylesheet" href="statCSS.css" />
 </head>
 <body>
     <nav class="navbar bg-body-tertiary navbar-expand-lg fixed-top border-bottom">
@@ -53,7 +53,7 @@
         </div>
     </nav>
     <!-- Working Area -->
-    <div class="container pt-4">
+    <div class="container">
         <div class="border-bottom py-2 mb-2">
             <h2 data-bind="text:displayName"></h2>
         </div>
@@ -116,7 +116,7 @@
                     <td class="align-middle" data-bind="text:School"></td>
                     <!-- ko if: Photo -->
                     <td class="text-center">
-                        <a target="_blank" data-bind="attr: {href: Photo}"><i style="color:white" class="fa-regular fa-image"></i></a>
+                        <a class="nav-link" target="_blank" data-bind="attr: {href: Photo}"><i class="fa-regular fa-image"></i></a>
                     </td>
                     <!-- /ko -->
                     <!-- ko ifnot: Photo -->

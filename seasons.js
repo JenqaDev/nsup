@@ -166,11 +166,13 @@ $(document).ready(function () {
     $('#ld-dark').click(function() {
         localStorage.setItem('bs-mode', 'dark');
         $("html").attr('data-bs-theme', localStorage.getItem('bs-mode'))
+        $('#ld-toggle i').removeClass("fa-toggle-on").addClass("fa-toggle-off")
     })
 
     $('#ld-light').click(function() {
         localStorage.setItem('bs-mode', 'light');
         $("html").attr('data-bs-theme', localStorage.getItem('bs-mode'))
+        $('#ld-toggle i').removeClass("fa-toggle-off").addClass("fa-toggle-on")
     })
 
     $('#ld-toggle').click(function() {
@@ -185,12 +187,22 @@ $(document).ready(function () {
             $('#ld-toggle i').removeClass("fa-toggle-on").addClass("fa-toggle-off")
         }
     })
+
+    $("form").submit(function(e){
+        e.preventDefault();
+        localStorage.setItem("try", ($(".form-control").val()))
+    });
 });
+
+function redirect() {
+    alert("now")
+    window.location.assign("./seasonDetails.html?id=" + localStorage.getItem('try'))
+}
 
 $(document).ajaxComplete(function (event, xhr, options) {
     $("#myModal").modal('hide');
     
-    var favorites = localStorage.getItem("favorites")
+    /*var favorites = localStorage.getItem("favorites")
     favorites = JSON.parse(favorites);
     console.log(favorites["Id"])
     for (var fv in favorites["Id"]){
@@ -199,7 +211,7 @@ $(document).ajaxComplete(function (event, xhr, options) {
             $('#' + item + ' i').addClass("fa-heart text-danger").removeClass("fa-heart-o");
             console.log("found " + item)
         }
-    }
+    }*/
 });
 
 

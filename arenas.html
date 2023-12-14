@@ -13,49 +13,9 @@
 
     <script src="https://kit.fontawesome.com/8988c027b3.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="myCSS.css" />
-    <script type="text/javascript">
-        function soap() {
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.open('GET', 'https://www.regcheck.org.uk/api/reg.asmx/CheckPortugal?RegistrationNumber=45-72-XQ&username=AmansaAugusto', true);
-            // build SOAP request
-            var sr =
-                '<?xml version="1.0" encoding="utf-8"?>' +
-                '<soapenv:Envelope ' + 
-                'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
-                'xmlns:api="http://127.0.0.1/Integrics/Enswitch/API" ' +
-                'xmlns:xsd="http://www.w3.org/2001/XMLSchema" ' +
-                'xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">' +
-                '<soapenv:Body>' +
-                '<api:some_api_call soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">' +
-                '</soapenv:Body>' +
-                '</soapenv:Envelope>';
-
-            xmlhttp.onreadystatechange = function () {
-                if (xmlhttp.readyState == 4) {
-                    if (xmlhttp.status == 200) {
-                        alert(xmlhttp.responseText);
-                        var re = /<vehicleJson>(?<plnc>.*)<\/vehicleJson>/
-                        var json = re.exec(xmlhttp.responseText).groups.plnc
-                        var vehicle = JSON.parse(json)
-                        console.log(vehicle)
-                    }
-                }
-            }
-            // Send the POST request
-            xmlhttp.send(sr);
-            
-            // send request
-            // ...
-        }
-    </script>
+    <link rel="stylesheet" href="statCSS.css" />
 </head>
 <body>
-
-    <div>
-        <input type="button" value="Soap" onclick="soap();" />
-    </div>
-
     <nav class="navbar bg-body-tertiary navbar-expand-lg fixed-top border-bottom">
         <div class="container">
             <a class="navbar-brand" href="index.html" tabindex="NBA"><img src="NBA_logoH.png" height="36" /></a>
@@ -126,7 +86,7 @@
         </div>
         <!-- /ko -->
 
-        <table class="table table-striped table-sm small">
+        <table class="table table-striped table-hover table-sm small">
             <thead class="table-secondary">
                 <tr>
                     <th scope="col">Id</th>

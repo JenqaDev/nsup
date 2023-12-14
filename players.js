@@ -126,7 +126,6 @@ $(document).ready(function () {
     ko.applyBindings(new vm());
 
 
-
     if (localStorage.getItem('bs-mode') != null){
         if (localStorage.getItem('bs-mode') == 'light'){
             $('#ld-toggle i').removeClass("fa-toggle-off").addClass("fa-toggle-on")
@@ -137,11 +136,13 @@ $(document).ready(function () {
     $('#ld-dark').click(function() {
         localStorage.setItem('bs-mode', 'dark');
         $("html").attr('data-bs-theme', localStorage.getItem('bs-mode'))
+        $('#ld-toggle i').removeClass("fa-toggle-on").addClass("fa-toggle-off")
     })
 
     $('#ld-light').click(function() {
         localStorage.setItem('bs-mode', 'light');
         $("html").attr('data-bs-theme', localStorage.getItem('bs-mode'))
+        $('#ld-toggle i').removeClass("fa-toggle-off").addClass("fa-toggle-on")
     })
 
     $('#ld-toggle').click(function() {

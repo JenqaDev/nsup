@@ -13,10 +13,6 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="myCSS.css" />
     <style>
-        body {
-            background-image: url('bkg.png')
-        }
-
         .carousel-item {
             z-index: -100;
             height: 640px;
@@ -25,29 +21,36 @@
             background-size: cover;
         }
 
-            .carousel-item:nth-child(1) {
-                background-image: url('https://cdn.nba.com/manage/2023/11/USATSI_21963262-784x441.jpg');
-            }
+        .carousel-caption {
+            color: black !important;
+        }
+        .carousel-indicators button {
+            background-color: black !important;
+        }
 
-            .carousel-item:nth-child(2) {
-                background-image: url('https://cdn.nba.com/manage/2023/11/GettyImages-1797516862.jpg');
-            }
+       .carousel-item:nth-child(1) {
+            background-image: url('1.jpg');
+       }
 
-            .carousel-item:nth-child(3) {
-                background-image: url('https://cdn.nba.com/manage/2023/11/banchero-784x441.jpg');
-            }
+       .carousel-item:nth-child(2) {
+            background-image: url('2.jpg');
+       }
 
-            .carousel-item:nth-child(4) {
-                background-image: url('https://cdn.nba.com/manage/2023/11/GettyImages-1730506370-1-scaled-e1700674286240-1568x882.jpg');
-            }
+       .carousel-item:nth-child(3) {
+            background-image: url('3.jpg');
+       }
 
-            .carousel-item:nth-child(5) {
-                background-image: url('https://cdn.nba.com/manage/2023/11/GettyImages-1790167479-1-1568x882.jpg');
-            }
+       .carousel-item:nth-child(4) {
+            background-image: url('4.jpg');
+       }
+
+       .carousel-item:nth-child(5) {
+            background-image: url('5.jpg');
+       }
     </style>
 </head>
 <body>
-    <nav class="navbar bg-body-tertiary navbar-expand-lg fixed-top border-bottom">
+    <nav class="navbar bg-body-tertiary navbar-expand-lg sticky-top">
         <div class="container">
             <a class="navbar-brand" href="index.html" tabindex="NBA"><img src="NBA_logoH.png" height="48" /></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,55 +65,73 @@
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="seasons.html"><i class="fa-regular fa-bookmark text-info "></i><span class="text-info"> Seasons</span></a></li>
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="xxx.html"><i class="fa fa-magic" title="The party continues..."></i> &middot;&middot;&middot;</a></li>
                 </ul>
+                <ul id="bd-themer" class="navbar-nav justify-content-end">
+                    <li id="ld-dark"class="px-2 navbar-text">
+                        <div type="button">
+                            <i class="fa-regular fa-moon"></i>
+                        </div>
+                    </li>
+                    <li id="ld-toggle" class="navbar-text">
+                        <div type="button">
+                            <i class="fa-solid fa-toggle-off"></i>
+                        </div>
+                    </li>
+                
+                    <li id="ld-light" class="px-2 navbar-text">
+                        <div type="button">
+                            <i class="fa-regular fa-sun"></i>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
     <!-- Working Area -->
-    <div class="container-xl pt-2">
-        <div id="myCarousel" class="carousel slide carousel-fade mb-5" data-bs-ride="carousel" data-bs-interval="10000">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" aria-label="Slide 1" class="active" aria-current="true"></button>
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="3" aria-label="Slide 3"></button>
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="4" aria-label="Slide 3"></button>
-            </div>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="carousel-caption d-none d-md-block">
-                        <p>The Magic (3-1) finished their Group Play games with a dominant East C win over the Celtics.</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="carousel-caption d-none d-md-block">
-                        <p>LeBron James and Luka Doncic waged an MVP-caliber battle on Wednesday.</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="carousel-caption d-none d-md-block">
-                        <p>Sacramento’s Paolo Banchero has improved as a shooter and defender in Year 2.</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="carousel-caption d-none d-md-block">
-                        <p>Jrue Holiday and Jayson Tatum have helped lead Boston to an NBA-best 11-3 record to begin the season.</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="carousel-caption d-none d-md-block">
-                        <p>The Warriors have seen a massive dip in creating early offense, ranking last in transition points.</p>
-                    </div>
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+    <div style="height: 100vh" id="myCarousel" class="carousel slide carousel-fade mb-5" data-bs-ride="carousel" data-bs-interval="10000">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" aria-label="Slide 1" class="active" aria-current="true"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="3" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="4" aria-label="Slide 3"></button>
         </div>
+        <div style="height:100%" class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="carousel-caption d-none d-md-block">
+                    <p>The Magic (3-1) finished their Group Play games with a dominant East C win over the Celtics.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="carousel-caption d-none d-md-block">
+                    <p>LeBron James and Luka Doncic waged an MVP-caliber battle on Wednesday.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="carousel-caption d-none d-md-block">
+                    <p>Sacramento’s Paolo Banchero has improved as a shooter and defender in Year 2.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="carousel-caption d-none d-md-block">
+                    <p>Jrue Holiday and Jayson Tatum have helped lead Boston to an NBA-best 11-3 record to begin the season.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="carousel-caption d-none d-md-block">
+                    <p>The Warriors have seen a massive dip in creating early offense, ranking last in transition points.</p>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <div class="container-xl">
         <p>
             Cursus natoque mus, maecenas inceptos pulvinar commodo semper quis at consequat. Primis tempus potenti dictum imperdiet egestas sociosqu ridiculus congue. Arcu nostra hendrerit leo mollis duis magna mattis phasellus. Nam maecenas ultricies ligula interdum. Nisl ullamcorper torquent phasellus nascetur lobortis augue sagittis cras. Consectetur scelerisque ultrices porttitor maecenas velit augue vulputate enim. Habitant laoreet purus sed risus feugiat posuere magnis condimentum. Libero parturient tempus, augue torquent est scelerisque! Aliquet senectus adipiscing litora condimentum aliquam felis primis lacinia dictum dui porta posuere. Accumsan inceptos risus rhoncus eu facilisis aenean orci primis felis tortor facilisi iaculis. Orci mollis sagittis et facilisis mattis nulla imperdiet imperdiet luctus. Ac donec sollicitudin adipiscing velit hendrerit dolor, vel rutrum elit lacus. Nascetur orci dis inceptos et lacus aliquet varius cursus. Venenatis elit eget himenaeos egestas blandit risus leo. Elementum; elementum nam bibendum mi hac nisi tortor curae;. Penatibus blandit condimentum non volutpat a. Aenean mus diam rutrum sem magnis.
         </p>
@@ -128,15 +149,16 @@
         </p>
     </div>
     <!-- End of Working Area -->
-    <nav class="navbar navbar-dark bg-body-tertiary fixed-bottom">
+    <nav class="navbar bg-body-tertiary border-top fixed-bottom">
         <div class="container small">
             <div class="navbar-text">&copy;  Introdução às Tecnologias Web - 2023/24</div>
             <div class="navbar-text">Made with <i class="fa-solid fa-heart text-danger"></i> by Miguel Neto and Tiago Quintas.</div>
             <div class="navbar-nav">
-                <div class="nav-item text-end"><a href="https://www.ua.pt" class="nav-link">Universidade de Aveiro</a></div>
+                <div style="--color: rgb(25,135,84)" class="nav-item text-end"><a href="https://www.ua.pt" class="nav-link">Universidade de Aveiro</a></div>
             </div>
         </div>
     </nav>
+    <script src="index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js'></script>
 </body>

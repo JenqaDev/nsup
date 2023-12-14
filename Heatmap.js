@@ -11,14 +11,17 @@
     }).addTo(map);
     map.flyTo([39.8097343, -98.5556199], 4.5);
 
+    var heat = []
+
     var composedUri = "http://192.168.160.58/NBA/API/Arenas";
     ajaxHelper(composedUri, 'GET')
         .done(function (data) {
             console.log(data);
             $.each(data.Records, function (index, record) {
-                L.marker([record.Lat, record.Lon]).addTo(map)
-                    .bindPopup(record.Name + '<br>' + record.StateName + " (" + record.CountryName + ")<br><a class=\"text-dark text-decoration-none\" target='_blank' href =\"./arenaDetails.html?id=" + record.Id+"\"><span class=\"text-danger\">&rarr;</span> Ver Jogos</a>");
+                heat = heat.concat([[parseFloat(record.Lat), parseFloat(record.Lon), 1200]])
             });
+            console.log(heat)
+            heat = L.heatLayer(heat,{radius:55}).addTo(map)
         });
 });
 

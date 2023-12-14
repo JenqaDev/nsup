@@ -1,6 +1,6 @@
 ﻿body {
     font-family: 'Open Sans', sans-serif;
-    margin: 56px 0 56px 0;
+    margin: 0 0 56px 0;
 }
 
 /* button default
@@ -11,18 +11,18 @@
     border-color: #ccc;
 }
 
-    .btn-default:focus {
-        color: #333;
-        background-color: #e6e6e6;
-        border-color: #8c8c8c;
-    }
+.btn-default:focus {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #8c8c8c;
+}
 
-    .btn-default:active,
-    .btn-default:hover {
-        color: #333;
-        background-color: #e6e6e6;
-        border-color: #adadad;
-    }
+.btn-default:active,
+.btn-default:hover {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
 
 /* button-xs
 ---------------------------- */
@@ -37,15 +37,35 @@ li.page-item a {
     font-size: 0.85rem;
 }
 
+.carousel-item {
+    height:100% !important;
+}
+
+.faderbtw {
+    background-image:linear-gradient(rgba(43,48,53,1), rgba(43,48,53,0), rgba(43,48,53,0), rgba(33, 37, 41, 0.5), rgba(33, 37, 41));
+}
+
+.faderwtb {
+    background-image:linear-gradient(rgba(248, 249, 250,1), rgba(43,48,53,0), rgba(43,48,53,0), rgba(33, 37, 41, 0.5), rgba(255, 255, 255));
+}
+
 .carousel-caption {
-    background-color:rgba(255,255,255,0.7);
-    bottom:0px;
-    left:0px;
-    right: 0px;
+    /*background-image:linear-gradient(rgba(43,48,53,1), rgba(43,48,53,0), rgba(43,48,53,0), rgba(33, 37, 41, 0.5), rgba(33, 37, 41));*/
+    inset: 0;
+    margin: auto;
 }
 
 .carousel-caption p {
+    color: white;
+    font-style:italic;
     font-weight:bold;
+    position: absolute;
+    text-align: right;
+    top: 70%;
+    bottom:15%;
+    left:45%;
+    right: 7%;
+    font-size: 3vh;
 }
 
 .nav-item {
