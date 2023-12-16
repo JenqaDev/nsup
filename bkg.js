@@ -188,40 +188,59 @@ $(document).ready(function () {
         }
     })
 
-    autocomplete()
+    $("form").submit(function(e){
+        e.preventDefault();
+        localStorage.setItem("try", ($(".form-control").val()))
+    });
 });
 
-function autocomplete() {
-    if (localStorage.getItem('seasonsJSON') == undefined || localStorage.getItem('seasonsJSON') == null) {
-        ajaxHelper('http://192.168.160.58/NBA/API/Teams', 'GET').done(function (data) {
-            localStorage.setItem('seasonsJSON', JSON.stringify(data.Records))
-        })
-    }
+self.activate = function (id) {
+};
 
-    var availableTags = JSON.parse(localStorage.getItem('seasonsJSON'))
-    var values = []
-    for (i in availableTags) {
-        values.push(availableTags[i]["Id"])
+function getJSON() {
+    if (localStorage.getItem('seasonsJSON') != null) {
+        console.log(JSON.stringify(localStorage.getItem('seasonsJSON')))
+    } else {
+        console.log('CALL: Searching Seasons...');
+        baseUri = "http://192.168.160.58/NBA/API/Seasons?page=1&pagesize=100"
+        var composedUri = baseUri;
+        ajaxHelper(composedUri, 'GET').done(function (data) {
+            $('#results').empty()
+            $('#parent_results').empty()
+            results = []
+            localStorage.setItem('seasonsJSON', data.Records)
+            $("")
+        });
     }
-
-    $("#tags").autocomplete({
-        source: function(request, response) {
-            var results = $.ui.autocomplete.filter(values.map(String), request.term);
-            response(results.slice(0, 20));
-        },
-        select: function (event, ui) {   
-            window.location.assign('seasonDetails.html?id= ' + ui.item.value);
+    
+/*
+    $(document).ready(function () {
+        if ($(".form-control").val() != ""){
+            $('#parent_results').append('<tr><th scope="col">Id</th><th scope="col">Season</th><th></th></tr>')
         }
-    }
-    );
+        for (var res of results) {
+            $("#results").append(
+                '<tr><td class="">' + res["Id"] + '</td><td class="">' + res["Season"] + '</td><td class="text-end"><a class="btn btn-default btn-light btn-xs" href="./seasonDetails.html?id= ' + res["Id"] + '"><i class="fa fa-eye" title="Show details"></i></a></td></tr>'
+            )
+        }})*/
+}
 
-    $("#tags").on('keypress',function(e) {
-        if(e.which == 13 && values.map(String).indexOf($("#tags").val()) >= 0 ) {
-            window.location.assign('seasonDetails.html?id= ' + $("#tags").val());
-        }
+function showresults() {
+    getJSON()
+}
+
+function redirect() {
+    //     http://192.168.160.58/NBA/API/Seasons/Search?q=ano
+    //window.location.assign("./seasonDetails.html?id=" + localStorage.getItem('try'))
+    baseUri = "http://192.168.160.58/NBA/API/Seasons/Search"
+    console.log('CALL: Searching Seasons...');
+    var composedUri = baseUri + "?q=" + $(".form-control").val();
+    ajaxHelper(composedUri, 'GET').done(function (data) {
+        console.log(data);
     });
 }
 
+//--- Internal functions
 function ajaxHelper(uri, method, data) {
     return $.ajax({
         type: method,

@@ -3,8 +3,8 @@ var vm = function () {
     console.log('ViewModel initiated...');
     //---Variáveis locais
     var self = this;
-    self.baseUri = ko.observable('http://192.168.160.58/NBA/API/Seasons');
-    self.displayName = 'NBA Seasons List';
+    self.baseUri = ko.observable('http://192.168.160.58/NBA/API/Conferences');
+    self.displayName = 'NBA Conferences List';
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
     self.records = ko.observableArray([]);
@@ -44,7 +44,7 @@ var vm = function () {
 
     //--- Page Events
     self.activate = function (id) {
-        console.log('CALL: getSeasons...');
+        console.log('CALL: getConferences...');
         var composedUri = self.baseUri() + "?page=" + id + "&pageSize=" + self.pagesize();
         ajaxHelper(composedUri, 'GET').done(function (data) {
             console.log(data);
@@ -188,21 +188,35 @@ $(document).ready(function () {
         }
     })
 
-    autocomplete()
-});
-
-function autocomplete() {
-    if (localStorage.getItem('seasonsJSON') == undefined || localStorage.getItem('seasonsJSON') == null) {
-        ajaxHelper('http://192.168.160.58/NBA/API/Teams', 'GET').done(function (data) {
-            localStorage.setItem('seasonsJSON', JSON.stringify(data.Records))
-        })
-    }
-
     var availableTags = JSON.parse(localStorage.getItem('seasonsJSON'))
     var values = []
     for (i in availableTags) {
         values.push(availableTags[i]["Id"])
     }
+    var availableTags = [
+        "ActionScript",
+        "AppleScript",
+        "Asp",
+        "BASIC",
+        "C",
+        "C++",
+        "Clojure",
+        "COBOL",
+        "ColdFusion",
+        "Erlang",
+        "Fortran",
+        "Groovy",
+        "Haskell",
+        "Java",
+        "JavaScript",
+        "Lisp",
+        "Perl",
+        "PHP",
+        "Python",
+        "Ruby",
+        "Scala",
+        "Scheme"
+    ];
 
     $("#tags").autocomplete({
         source: function(request, response) {
@@ -220,21 +234,7 @@ function autocomplete() {
             window.location.assign('seasonDetails.html?id= ' + $("#tags").val());
         }
     });
-}
-
-function ajaxHelper(uri, method, data) {
-    return $.ajax({
-        type: method,
-        url: uri,
-        dataType: 'json',
-        contentType: 'application/json',
-        data: data ? JSON.stringify(data) : null,
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log("AJAX Call[" + uri + "] Fail...");
-            hideLoading();
-        }
-    });
-}
+});
 
 $(document).ajaxComplete(function (event, xhr, options) {
     $("#myModal").modal('hide');
