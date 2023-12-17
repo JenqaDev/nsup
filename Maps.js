@@ -17,7 +17,7 @@
             console.log(data);
             $.each(data.Records, function (index, record) {
                 L.marker([record.Lat, record.Lon]).addTo(map)
-                    .bindPopup(record.Name + '<br>' + record.StateName + " (" + record.CountryName + ")<br><a class=\"text-dark text-decoration-none\" target='_blank' href =\"./arenaDetails.html?id=" + record.Id+"\"><span class=\"text-danger\">&rarr;</span> Ver Jogos</a>");
+                    .bindPopup("<b>" + record.Name + "</b><br><a class=\"text-dark text-decoration-none\" target='_blank' href =\"./arenaDetails.html?id=" + record.Id+"\"><span class=\"text-danger\">&rarr;</span> State Details: "  + record.StateName +  "</a><br><a class=\"text-dark text-decoration-none\" target='_blank' href =\"./arenaDetails.html?id=" + record.Id+"\"><span class=\"text-danger\">&rarr;</span> Arena Details</a>");
             });
         });
 });

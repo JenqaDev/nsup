@@ -188,35 +188,21 @@ $(document).ready(function () {
         }
     })
 
-    var availableTags = JSON.parse(localStorage.getItem('seasonsJSON'))
+    autocomplete()
+});
+
+function autocomplete() {
+    if (localStorage.getItem('conferencesJSON') == undefined || localStorage.getItem('conferencesJSON') == null) {
+        ajaxHelper('http://192.168.160.58/NBA/API/Conferences', 'GET').done(function (data) {
+            localStorage.setItem('conferencesJSON', JSON.stringify(data.Records))
+        })
+    }
+
+    var availableTags = JSON.parse(localStorage.getItem('conferencesJSON'))
     var values = []
     for (i in availableTags) {
-        values.push(availableTags[i]["Id"])
+        values.push([availableTags[i]["Id"], availableTags[i]["Name"]])
     }
-    var availableTags = [
-        "ActionScript",
-        "AppleScript",
-        "Asp",
-        "BASIC",
-        "C",
-        "C++",
-        "Clojure",
-        "COBOL",
-        "ColdFusion",
-        "Erlang",
-        "Fortran",
-        "Groovy",
-        "Haskell",
-        "Java",
-        "JavaScript",
-        "Lisp",
-        "Perl",
-        "PHP",
-        "Python",
-        "Ruby",
-        "Scala",
-        "Scheme"
-    ];
 
     $("#tags").autocomplete({
         source: function(request, response) {
@@ -224,31 +210,28 @@ $(document).ready(function () {
             response(results.slice(0, 20));
         },
         select: function (event, ui) {   
-            window.location.assign('seasonDetails.html?id= ' + ui.item.value);
+            window.location.assign('conferenceDetails.html?id=' + ui.item.value.split(",")[0]);
         }
     }
     );
+}
 
-    $("#tags").on('keypress',function(e) {
-        if(e.which == 13 && values.map(String).indexOf($("#tags").val()) >= 0 ) {
-            window.location.assign('seasonDetails.html?id= ' + $("#tags").val());
+function ajaxHelper(uri, method, data) {
+    return $.ajax({
+        type: method,
+        url: uri,
+        dataType: 'json',
+        contentType: 'application/json',
+        data: data ? JSON.stringify(data) : null,
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log("AJAX Call[" + uri + "] Fail...");
+            hideLoading();
         }
     });
-});
+}
 
 $(document).ajaxComplete(function (event, xhr, options) {
     $("#myModal").modal('hide');
-    
-    /*var favorites = localStorage.getItem("favorites")
-    favorites = JSON.parse(favorites);
-    console.log(favorites["Id"])
-    for (var fv in favorites["Id"]){
-        if (favorites["Id"][fv] != null){
-            item = 'favourite_'+favorites["Id"][fv]
-            $('#' + item + ' i').addClass("fa-heart text-danger").removeClass("fa-heart-o");
-            console.log("found " + item)
-        }
-    }*/
 });
 
 

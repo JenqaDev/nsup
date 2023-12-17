@@ -1,16 +1,27 @@
+Array.prototype.chunk = function (chunkSize) {
+    var array = this;
+    return [].concat.apply([],
+    array.map(function (elem, i) {
+        return i % chunkSize ? [] : [array.slice(i, i + chunkSize)];
+    }));
+}
+
 // ViewModel KnockOut
 var vm = function () {
     console.log('ViewModel initiated...');
     //---Variáveis locais
     var self = this;
-    self.baseUri = ko.observable('http://192.168.160.58/NBA/API/Seasons/');
+    self.baseUri = ko.observable('http://192.168.160.58/NBA/API/Positions/');
     self.displayName = 'NBA Season Details';
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
     //--- Data Record
     self.Id = ko.observable(0);
-    self.Season = ko.observable('');
+    self.Name = ko.observable('');
     self.Players = ko.observable([]);
+    self.PlayersChunked = ko.computed(function(){
+        return self.Players().chunk(4);
+    });
 
     //--- Page Events
     self.activate = function (id) {
@@ -20,7 +31,7 @@ var vm = function () {
             console.log(data);
             hideLoading();
             self.Id(data.Id);
-            self.Season(data.Season);
+            self.Name(data.Name);
             self.Players(data.Players);
         });
     };

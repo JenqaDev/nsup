@@ -3,14 +3,15 @@ var vm = function () {
     console.log('ViewModel initiated...');
     //---Variáveis locais
     var self = this;
-    self.baseUri = ko.observable('http://192.168.160.58/NBA/API/Seasons/');
-    self.displayName = 'NBA Season Details';
+    self.baseUri = ko.observable('http://192.168.160.58/NBA/API/Divisions/');
+    self.displayName = 'NBA Division Details';
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
     //--- Data Record
     self.Id = ko.observable(0);
-    self.Season = ko.observable('');
-    self.Players = ko.observable([]);
+    self.Name = ko.observable('');
+    self.Logo = ko.observable('');
+    self.Teams = ko.observable([]);
 
     //--- Page Events
     self.activate = function (id) {
@@ -20,8 +21,9 @@ var vm = function () {
             console.log(data);
             hideLoading();
             self.Id(data.Id);
-            self.Season(data.Season);
-            self.Players(data.Players);
+            self.Name(data.Name);
+            self.Logo(data.Logo);
+            self.Teams(data.Teams);
         });
     };
 

@@ -3,8 +3,8 @@ var vm = function () {
     console.log('ViewModel initiated...');
     //---Variáveis locais
     var self = this;
-    self.baseUri = ko.observable('http://192.168.160.58/NBA/API/Seasons');
-    self.displayName = 'NBA Seasons List';
+    self.baseUri = ko.observable('http://192.168.160.58/NBA/API/SeasonTypes');
+    self.displayName = 'NBA Season Types List';
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
     self.records = ko.observableArray([]);
@@ -192,16 +192,16 @@ $(document).ready(function () {
 });
 
 function autocomplete() {
-    if (localStorage.getItem('seasonsJSON') == undefined || localStorage.getItem('seasonsJSON') == null) {
-        ajaxHelper('http://192.168.160.58/NBA/API/Teams', 'GET').done(function (data) {
-            localStorage.setItem('seasonsJSON', JSON.stringify(data.Records))
+    if (localStorage.getItem('ssntypesJSON') == undefined || localStorage.getItem('ssntypesJSON') == null) {
+        ajaxHelper('http://192.168.160.58/NBA/API/SeasonTypes', 'GET').done(function (data) {
+            localStorage.setItem('ssntypesJSON', JSON.stringify(data.Records))
         })
     }
 
-    var availableTags = JSON.parse(localStorage.getItem('seasonsJSON'))
+    var availableTags = JSON.parse(localStorage.getItem('ssntypesJSON'))
     var values = []
     for (i in availableTags) {
-        values.push(availableTags[i]["Id"])
+        values.push([availableTags[i]["Id"]," " + availableTags[i]["Name"]])
     }
 
     $("#tags").autocomplete({
@@ -210,16 +210,10 @@ function autocomplete() {
             response(results.slice(0, 20));
         },
         select: function (event, ui) {   
-            window.location.assign('seasonDetails.html?id= ' + ui.item.value);
+            window.location.assign('ssntypeDetails.html?id= ' + ui.item.value.split(",")[0].trim());
         }
     }
     );
-
-    $("#tags").on('keypress',function(e) {
-        if(e.which == 13 && values.map(String).indexOf($("#tags").val()) >= 0 ) {
-            window.location.assign('seasonDetails.html?id= ' + $("#tags").val());
-        }
-    });
 }
 
 function ajaxHelper(uri, method, data) {

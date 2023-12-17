@@ -1,13 +1,16 @@
-
+// ViewModel KnockOut
 var vm = function () {
     console.log('ViewModel initiated...');
     //---Variáveis locais
     var self = this;
     self.baseUri = ko.observable('http://192.168.160.58/NBA/API/Seasons');
+    self.statUri = ko.observable('http://192.168.160.58/NBA/API/Statistics/NumPlayersBySeason');
     self.displayName = 'NBA Seasons List';
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
     self.records = ko.observableArray([]);
+    self.players = ko.observableArray([]);
+    self.both = ko.observableArray([]);
     self.currentPage = ko.observable(1);
     self.pagesize = ko.observable(20);
     self.totalRecords = ko.observable(50);
@@ -58,6 +61,7 @@ var vm = function () {
             self.totalRecords(data.TotalRecords);
             console.log(data.Records);
         });
+
     };
     
     //--- Internal functions
@@ -193,7 +197,7 @@ $(document).ready(function () {
 
 function autocomplete() {
     if (localStorage.getItem('seasonsJSON') == undefined || localStorage.getItem('seasonsJSON') == null) {
-        ajaxHelper('http://192.168.160.58/NBA/API/Teams', 'GET').done(function (data) {
+        ajaxHelper('http://192.168.160.58/NBA/API/Seasons', 'GET').done(function (data) {
             localStorage.setItem('seasonsJSON', JSON.stringify(data.Records))
         })
     }
@@ -210,14 +214,14 @@ function autocomplete() {
             response(results.slice(0, 20));
         },
         select: function (event, ui) {   
-            window.location.assign('seasonDetails.html?id= ' + ui.item.value);
+            window.location.assign('seasonDetails.html?id=' + ui.item.value);
         }
     }
     );
 
     $("#tags").on('keypress',function(e) {
         if(e.which == 13 && values.map(String).indexOf($("#tags").val()) >= 0 ) {
-            window.location.assign('seasonDetails.html?id= ' + $("#tags").val());
+            window.location.assign('seasonDetails.html?id=' + $("#tags").val());
         }
     });
 }

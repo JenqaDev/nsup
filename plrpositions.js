@@ -3,8 +3,8 @@ var vm = function () {
     console.log('ViewModel initiated...');
     //---Variáveis locais
     var self = this;
-    self.baseUri = ko.observable('http://192.168.160.58/NBA/API/Seasons');
-    self.displayName = 'NBA Seasons List';
+    self.baseUri = ko.observable('http://192.168.160.58/NBA/API/Positions');
+    self.displayName = 'NBA Player Positions List';
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
     self.records = ko.observableArray([]);
@@ -134,23 +134,23 @@ $(document).ready(function () {
         
         if (!favorites) {
             console.log("adding fav")
-            localStorage.setItem("season_fav_" + id, id);
+            localStorage.setItem("position_fav_" + id, id);
         }else{
-            localStorage.removeItem("season_fav_" + id, id);
+            localStorage.removeItem("position_fav_" + id, id);
         }
 
-        if (favorites["Id"].includes(season)){
-            console.log("removing " + season)
+        if (favorites["Id"].includes(position)){
+            console.log("removing " + position)
             $('#'+fid + ' i').removeClass("fa-heart text-danger");
             $('#'+fid + ' i').addClass("fa-heart-o");
             for (var key in favorites["Id"]) {
-                if (favorites["Id"][key] == season) delete favorites["Id"][key];
+                if (favorites["Id"][key] == position) delete favorites["Id"][key];
             }
         }else{
             $('#'+fid + ' i').removeClass("fa-heart-o");
             $('#'+fid + ' i').addClass("fa-heart text-danger");
-            favorites.Id.push(season);
-            console.log("adding " + season)
+            favorites.Id.push(position);
+            console.log("adding " + position)
         }
         
         localStorage.setItem("favorites", JSON.stringify(favorites));
@@ -192,16 +192,16 @@ $(document).ready(function () {
 });
 
 function autocomplete() {
-    if (localStorage.getItem('seasonsJSON') == undefined || localStorage.getItem('seasonsJSON') == null) {
-        ajaxHelper('http://192.168.160.58/NBA/API/Teams', 'GET').done(function (data) {
-            localStorage.setItem('seasonsJSON', JSON.stringify(data.Records))
+    if (localStorage.getItem('positionsJSON') == undefined || localStorage.getItem('positionsJSON') == null) {
+        ajaxHelper('http://192.168.160.58/NBA/API/Positions', 'GET').done(function (data) {
+            localStorage.setItem('positionsJSON', JSON.stringify(data.Records))
         })
     }
 
-    var availableTags = JSON.parse(localStorage.getItem('seasonsJSON'))
+    var availableTags = JSON.parse(localStorage.getItem('positionsJSON'))
     var values = []
     for (i in availableTags) {
-        values.push(availableTags[i]["Id"])
+        values.push([availableTags[i]["Id"], " " + availableTags[i]["Name"]])
     }
 
     $("#tags").autocomplete({
@@ -210,16 +210,11 @@ function autocomplete() {
             response(results.slice(0, 20));
         },
         select: function (event, ui) {   
-            window.location.assign('seasonDetails.html?id= ' + ui.item.value);
+            window.location.assign('plrpositionDetails.html?id=' + ui.item.value.split(",")[0].trim());
         }
     }
     );
 
-    $("#tags").on('keypress',function(e) {
-        if(e.which == 13 && values.map(String).indexOf($("#tags").val()) >= 0 ) {
-            window.location.assign('seasonDetails.html?id= ' + $("#tags").val());
-        }
-    });
 }
 
 function ajaxHelper(uri, method, data) {
