@@ -185,11 +185,6 @@ function autocomplete() {
     }
     );
 
-    $("#tags").on('keypress',function(e) {
-        if(e.which == 13 && values.map(String).indexOf($("#tags").val()) >= 0 ) {
-            window.location.assign('playerDetails.html?id=' + $("#tags").val());
-        }
-    });
 }
 
 function ajaxHelper(uri, method, data) {

@@ -3,9 +3,8 @@ var vm = function () {
     console.log('ViewModel initiated...');
     //---Variáveis locais
     var self = this;
-    self.baseUri = ko.observable('http://192.168.160.58/NBA/API/Teams');
-    self.displayName = 'NBA Teams List';
-    self.countTeams = ko.observable(0);
+    self.baseUri = ko.observable('http://192.168.160.58/NBA/API/Seasons');
+    self.displayName = 'NBA Seasons List';
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
     self.records = ko.observableArray([]);
@@ -45,7 +44,7 @@ var vm = function () {
 
     //--- Page Events
     self.activate = function (id) {
-        console.log('CALL: getStates...');
+        console.log('CALL: getSeasons...');
         var composedUri = self.baseUri() + "?page=" + id + "&pageSize=" + self.pagesize();
         ajaxHelper(composedUri, 'GET').done(function (data) {
             console.log(data);
@@ -57,18 +56,10 @@ var vm = function () {
             self.pagesize(data.PageSize)
             self.totalPages(data.TotalPages);
             self.totalRecords(data.TotalRecords);
-            console.log(data.Records.Players);
-            //self.SetFavourites();
+            console.log(data.Records);
         });
-        //console.log('CALL: countTeams...');
-        //var teamCount = self.teams() + "?q=" + "StateId";
-        //ajaxHelper(teamCount, 'GET').done(function (data) {
-            //console.log(data)
-        //    hideLoading();
-        //});
-        //console.log(teamCount);
     };
-
+    
     //--- Internal functions
     function ajaxHelper(uri, method, data) {
         self.error(''); // Clear error message
@@ -132,8 +123,38 @@ var vm = function () {
 
 $(document).ready(function () {
     console.log("ready!");
-    ko.applyBindings(new vm());
+    var nvm = new vm();
+    ko.applyBindings(nvm);
 
+    $(document).on('click', "[id^='favourite_']", event => {
+        var id = $(event.target).parents()[1].firstElementChild.innerHTML;
+        
+        var fid = 'favourite_' + id
+        var favorites = localStorage.getItem("favorites");
+        
+        if (!favorites) {
+            console.log("adding fav")
+            localStorage.setItem("season_fav_" + id, id);
+        }else{
+            localStorage.removeItem("season_fav_" + id, id);
+        }
+
+        if (favorites["Id"].includes(season)){
+            console.log("removing " + season)
+            $('#'+fid + ' i').removeClass("fa-heart text-danger");
+            $('#'+fid + ' i').addClass("fa-heart-o");
+            for (var key in favorites["Id"]) {
+                if (favorites["Id"][key] == season) delete favorites["Id"][key];
+            }
+        }else{
+            $('#'+fid + ' i').removeClass("fa-heart-o");
+            $('#'+fid + ' i').addClass("fa-heart text-danger");
+            favorites.Id.push(season);
+            console.log("adding " + season)
+        }
+        
+        localStorage.setItem("favorites", JSON.stringify(favorites));
+    });
 
     if (localStorage.getItem('bs-mode') != null){
         if (localStorage.getItem('bs-mode') == 'light'){
@@ -171,25 +192,25 @@ $(document).ready(function () {
 });
 
 function autocomplete() {
-    if (localStorage.getItem('teamsJSON') == undefined || localStorage.getItem('teamsJSON') == null) {
+    if (localStorage.getItem('seasonsJSON') == undefined || localStorage.getItem('seasonsJSON') == null) {
         ajaxHelper('http://192.168.160.58/NBA/API/Teams', 'GET').done(function (data) {
-            localStorage.setItem('teamsJSON', JSON.stringify(data.Records))
+            localStorage.setItem('seasonsJSON', JSON.stringify(data.Records))
         })
     }
 
-    var availableTags = JSON.parse(localStorage.getItem('teamsJSON'))
+    var availableTags = JSON.parse(localStorage.getItem('seasonsJSON'))
     var values = []
     for (i in availableTags) {
-        values.push([availableTags[i]["Id"], availableTags[i]["Acronym"], availableTags[i]["Name"]])
+        values.push(availableTags[i]["Id"])
     }
-    console.log(values)
+
     $("#tags").autocomplete({
         source: function(request, response) {
             var results = $.ui.autocomplete.filter(values.map(String), request.term);
             response(results.slice(0, 20));
         },
         select: function (event, ui) {   
-            window.location.assign('teamDetails.html?id= ' + ui.item.value.split(',')[0] + '&acronym=' + ui.item.value.split(',')[1]);
+            window.location.assign('seasonDetails.html?id= ' + ui.item.value);
         }
     }
     );
@@ -217,4 +238,18 @@ function ajaxHelper(uri, method, data) {
 
 $(document).ajaxComplete(function (event, xhr, options) {
     $("#myModal").modal('hide');
-})
+    
+    /*var favorites = localStorage.getItem("favorites")
+    favorites = JSON.parse(favorites);
+    console.log(favorites["Id"])
+    for (var fv in favorites["Id"]){
+        if (favorites["Id"][fv] != null){
+            item = 'favourite_'+favorites["Id"][fv]
+            $('#' + item + ' i').addClass("fa-heart text-danger").removeClass("fa-heart-o");
+            console.log("found " + item)
+        }
+    }*/
+});
+
+
+
