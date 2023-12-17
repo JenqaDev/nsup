@@ -1,3 +1,11 @@
+Array.prototype.chunk = function (chunkSize) {
+    var array = this;
+    return [].concat.apply([],
+    array.map(function (elem, i) {
+        return i % chunkSize ? [] : [array.slice(i, i + chunkSize)];
+    }));
+}
+
 // ViewModel KnockOut
 var vm = function () {
     console.log('ViewModel initiated...');
@@ -10,7 +18,10 @@ var vm = function () {
     //--- Data Record
     self.Id = ko.observable(0);
     self.Season = ko.observable('');
-    self.Players = ko.observable([]);
+    self.Teams = ko.observable([]);
+    self.TeamsChunked = ko.computed(function(){
+        return self.Teams().chunk(4);
+    });
 
     //--- Page Events
     self.activate = function (id) {
@@ -21,7 +32,7 @@ var vm = function () {
             hideLoading();
             self.Id(data.Id);
             self.Season(data.Season);
-            self.Players(data.Players);
+            self.Teams(data.Teams);
         });
     };
 

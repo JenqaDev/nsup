@@ -40,7 +40,21 @@
         <div class="row g-2 mb-1">
             <div class="col-2">Season</div><div class="col-10" data-bind="text:Season"></div>
         </div>
-        <div class="row mt-3 border-bottom"></div>
+        <div class="pt-3 border-top border-bottom mb-3">
+            <h4><span data-bind="text: 'List of Teams playing in ' + Season()"></h4>
+        </div>
+        <div class="row g-2" data-bind="foreach: TeamsChunked">
+            <!-- ko foreach: $data-->
+            <div class="col-3">
+                <div class="border rounded py-1 px-2 small">
+                    <a class="nav-link" data-bind="attr: {href: './teamDetails.html?id=' + Id + '&acronym=' + Acronym}">
+                        <i class="fa-solid fa-basketball" style="color:orange"> </i> 
+                        <span data-bind="text:Name"></span>
+                    </a>
+                </div>
+            </div>
+            <!-- /ko -->
+        </div>
         <div class="text-center mt-4">
             <a href="./seasons.html" class="btn bg-body-tertiary"><i class="fa fa-list"></i> Back to List</a>
         </div>
