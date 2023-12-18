@@ -223,7 +223,7 @@ function autocomplete() {
     var availableTags = JSON.parse(localStorage.getItem('teamsJSON'))
     var values = []
     for (i in availableTags) {
-        values.push([availableTags[i]["Id"], availableTags[i]["Acronym"], availableTags[i]["Name"]])
+        values.push([availableTags[i]["Id"], " " + availableTags[i]["Acronym"], " " + availableTags[i]["Name"]])
     }
     console.log(values)
     $("#tags").autocomplete({
@@ -232,14 +232,14 @@ function autocomplete() {
             response(results.slice(0, 20));
         },
         select: function (event, ui) {   
-            window.location.assign('teamDetails.html?id= ' + ui.item.value.split(',')[0] + '&acronym=' + ui.item.value.split(',')[1]);
+            window.location.assign('teamDetails.html?id=' + ui.item.value.split(',')[0].trim() + '&acronym=' + ui.item.value.split(',')[1].trim());
         }
     }
     );
 
     $("#tags").on('keypress',function(e) {
         if(e.which == 13 && values.map(String).indexOf($("#tags").val()) >= 0 ) {
-            window.location.assign('seasonDetails.html?id= ' + $("#tags").val());
+            window.location.assign('teamDetails.html?id=' + $("#tags").val());
         }
     });
 }

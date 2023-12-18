@@ -200,7 +200,48 @@ $(document).ready(function () {
             $('#ld-toggle i').removeClass("fa-toggle-on").addClass("fa-toggle-off")
         }
     })
+
+    autocomplete()
 });
+
+function autocomplete() {
+    if (localStorage.getItem('arenasJSON') == undefined || localStorage.getItem('arenasJSON') == null) {
+        ajaxHelper('http://192.168.160.58/NBA/API/Arenas', 'GET').done(function (data) {
+            localStorage.setItem('arenasJSON', JSON.stringify(data.Records))
+        })
+    }
+
+    var availableTags = JSON.parse(localStorage.getItem('arenasJSON'))
+    var values = []
+    for (i in availableTags) {
+        values.push([availableTags[i]["Id"], " " + availableTags[i]["Name"]])
+    }
+
+    $("#tags").autocomplete({
+        source: function(request, response) {
+            var results = $.ui.autocomplete.filter(values.map(String), request.term);
+            response(results.slice(0, 20));
+        },
+        select: function (event, ui) {   
+            window.location.assign('arenaDetails.html?id=' + ui.item.value.split(",")[0].trim());
+        }
+    }
+    );
+}
+
+function ajaxHelper(uri, method, data) {
+    return $.ajax({
+        type: method,
+        url: uri,
+        dataType: 'json',
+        contentType: 'application/json',
+        data: data ? JSON.stringify(data) : null,
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log("AJAX Call[" + uri + "] Fail...");
+            hideLoading();
+        }
+    });
+}
 
 $(document).ajaxComplete(function (event, xhr, options) {
     $("#myModal").modal('hide');

@@ -28,6 +28,18 @@
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="states.html"><i class="fa fa-map-marker text-success"></i><span class="text-success"> States</span></a></li>
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="seasons.html"><i class="fa-regular fa-bookmark text-info "></i><span class="text-info"> Seasons</span></a></li>
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="game.html"><i class="fa fa-magic" title="The party continues..."></i> Game</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" aria-current="page" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-circle-info" title="The party continues..."></i> More info
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="GraphsChartJS.html">Graphs</a></li>
+                            <li><a class="dropdown-item" href="conferences.html">Conferences</a></li>
+                            <li><a class="dropdown-item" href="divisions.html">Divisions</a></li>
+                            <li><a class="dropdown-item" href="plrpositions.html">Player Positions</a></li>
+                            <li><a class="dropdown-item" href="ssntypes.html">Season Types</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <ul id="bd-themer" class="navbar-nav justify-content-end">
                     <li id="ld-dark"class="px-2 navbar-text">
@@ -60,37 +72,37 @@
             <div class="col-2">Name</div><div class="col-10" data-bind="text: Name"></div>
         </div>
         <!-- ko if: Birthdate -->
-        <div class="row border-bottom g-2">
+        <div class="row g-2">
             <div class="col-2">Birthdate</div><div class="col-10" data-bind="text: Birthdate().replace(/T.*$/, '').replaceAll(/-/gi, '/')"></div>
         </div>
         <!-- /ko -->
         <!-- ko if: CountryName -->
-        <div class="row border-bottom g-2">
+        <div class="row g-2">
             <div class="col-2">Country</div><div class="col-10" data-bind="text:CountryName"></div>
         </div>
         <!-- /ko -->
         <!-- ko if: PositionName -->
-        <div class="row border-bottom g-2">
+        <div class="row g-2">
             <div class="col-2">Position</div><div class="col-10" data-bind="text: PositionName"></div>
         </div>
         <!-- /ko -->
         <!-- ko if: DraftYear -->
-        <div class="row border-bottom g-2">
+        <div class="row g-2">
             <div class="col-2">Draft Year</div><div class="col-10" data-bind="text: DraftYear"></div>
         </div>
         <!-- /ko -->
         <!-- ko if: Height -->
-        <div class="row border-bottom g-2">
+        <div class="row g-2">
             <div class="col-2">Height</div><div class="col-10" data-bind="text: Height"></div>
         </div>
         <!-- /ko -->
         <!-- ko if: Weight -->
-        <div class="row border-bottom g-2">
+        <div class="row g-2">
             <div class="col-2">Weight</div><div class="col-10" data-bind="text: Weight"></div>
         </div>
         <!-- /ko -->
         <!-- ko if: School -->
-        <div class="row border-bottom g-2">
+        <div class="row g-2 mb-1">
             <div class="col-2">School</div><div class="col-10" data-bind="text: School"></div>
         </div>
         <!-- /ko -->
@@ -98,7 +110,7 @@
         <!--<div class="row border-bottom g-2" data-bind="visible: Photo() != '' && Photo() != null">-->
         <div class="row g-2">
             <div class="col-2">Photo</div><div class="small col-10">
-                <img class="img-thumbnail" data-bind="attr:{src: Photo}"><br />
+                <img class="img-thumbnail col-4 mb-3" data-bind="attr:{src: Photo}"><br />
                 <i class="fa fa-link"></i> [<a class="link text-decoration-none" data-bind="attr: { href: Photo }, text: Photo" target="_blank"></a>]
             </div>
         </div>
@@ -129,12 +141,12 @@
         </div>
     </div>
     <!-- End of Work Area -->
-    <nav class="navbar navbar-dark bg-dark fixed-bottom">
+    <nav class="navbar fixed-bottom border-top bg-body-tertiary">
         <div class="container small">
-            <div class="navbar-text">&copy;  Introdução as Tecnologias Web - 2023/24</div>
-            <div class="navbar-text">Made with <i class="fa fa-heart-o text-danger"></i> for U by <a href="mailto:jsp@ua.pt" class="text-decoration-none text-muted">jsp@ua.pt</a>.</div>
+            <div class="navbar-text">&copy;  Introdução às Tecnologias Web - 2023/24</div>
+            <div class="navbar-text">Made with <i class="fa-solid fa-heart text-danger"></i> by Miguel Neto and Tiago Quintas.</div>
             <div class="navbar-nav">
-                <div class="nav-item text-end"><a href="https://www.ua.pt" class="nav-link">Universidade de Aveiro</a></div>
+                <div style="--color: rgb(25,135,84)" class="nav-item text-end"><a href="https://www.ua.pt" class="nav-link">Universidade de Aveiro</a></div>
             </div>
         </div>
     </nav>

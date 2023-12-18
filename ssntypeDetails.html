@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>ITW 2023/24 - NBA Team Details</title>
+    <title>ITW 2023/24 - NBA Season Type Details</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap">
@@ -28,6 +28,36 @@
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="states.html"><i class="fa fa-map-marker text-success"></i><span class="text-success"> States</span></a></li>
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="seasons.html"><i class="fa-regular fa-bookmark text-info "></i><span class="text-info"> Seasons</span></a></li>
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="game.html"><i class="fa fa-magic" title="The party continues..."></i> Game</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" aria-current="page" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-circle-info" title="The party continues..."></i> More info
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="GraphsChartJS.html">Graphs</a></li>
+                            <li><a class="dropdown-item" href="conferences.html">Conferences</a></li>
+                            <li><a class="dropdown-item" href="divisions.html">Divisions</a></li>
+                            <li><a class="dropdown-item" href="plrpositions.html">Player Positions</a></li>
+                            <li><a class="dropdown-item" href="ssntypes.html">Season Types</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul id="bd-themer" class="navbar-nav justify-content-end">
+                    <li id="ld-dark"class="px-2 navbar-text">
+                        <div type="button">
+                            <i class="fa-regular fa-moon"></i>
+                        </div>
+                    </li>
+                    <li id="ld-toggle" class="navbar-text">
+                        <div type="button">
+                            <i class="fa-solid fa-toggle-off"></i>
+                        </div>
+                    </li>
+                
+                    <li id="ld-light" class="px-2 navbar-text">
+                        <div type="button">
+                            <i class="fa-regular fa-sun"></i>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -35,10 +65,10 @@
     <!-- Work Area-->
     <div class="container">
         <div class="py-2 border-bottom mb-3">
-            <h2><span data-bind="text: Id() + ' - Details'"></span></h2>
+            <h2><span data-bind="text: 'Season Type - Details'"></span><small class="float-end" data-bind="text: 'ID ' + Id()"></small></h2>
         </div>
         <div class="row g-2 mb-1">
-            <div class="col-2">Season</div><div class="col-10" data-bind="text:Season"></div>
+            <div class="col-2">Name</div><div class="col-10" data-bind="text:Name"></div>
         </div>
         <div class="row mt-3 border-bottom"></div>
         <div class="text-center mt-4">
@@ -66,11 +96,11 @@
             <div class="navbar-text">&copy;  Introdução às Tecnologias Web - 2023/24</div>
             <div class="navbar-text">Made with <i class="fa-solid fa-heart text-danger"></i> by Miguel Neto and Tiago Quintas.</div>
             <div class="navbar-nav">
-                <div class="nav-item text-end"><a href="https://www.ua.pt" class="nav-link">Universidade de Aveiro</a></div>
+                <div style="--color: rgb(25,135,84)" class="nav-item text-end"><a href="https://www.ua.pt" class="nav-link">Universidade de Aveiro</a></div>
             </div>
         </div>
     </nav>
-    <script src="seasonDetails.js"></script>
+    <script src="ssntypeDetails.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js'></script>
 </body>

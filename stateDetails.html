@@ -28,6 +28,36 @@
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="states.html"><i class="fa fa-map-marker text-success"></i><span class="text-success"> States</span></a></li>
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="seasons.html"><i class="fa-regular fa-bookmark text-info "></i><span class="text-info"> Seasons</span></a></li>
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="game.html"><i class="fa fa-magic" title="The party continues..."></i> Game</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" aria-current="page" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-circle-info" title="The party continues..."></i> More info
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="GraphsChartJS.html">Graphs</a></li>
+                            <li><a class="dropdown-item" href="conferences.html">Conferences</a></li>
+                            <li><a class="dropdown-item" href="divisions.html">Divisions</a></li>
+                            <li><a class="dropdown-item" href="plrpositions.html">Player Positions</a></li>
+                            <li><a class="dropdown-item" href="ssntypes.html">Season Types</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul id="bd-themer" class="navbar-nav justify-content-end">
+                    <li id="ld-dark"class="px-2 navbar-text">
+                        <div type="button">
+                            <i class="fa-regular fa-moon"></i>
+                        </div>
+                    </li>
+                    <li id="ld-toggle" class="navbar-text">
+                        <div type="button">
+                            <i class="fa-solid fa-toggle-off"></i>
+                        </div>
+                    </li>
+                
+                    <li id="ld-light" class="px-2 navbar-text">
+                        <div type="button">
+                            <i class="fa-regular fa-sun"></i>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -44,11 +74,34 @@
         <div class="row border-bottom g-2">
             <div class="col-2">Name</div><div class="col-10" data-bind="text: Name"></div>
         </div>
-        <div class="row border-bottom g-2" data-bind="visible: Flag() != '' && Flag() != null">
+        <div class="row g-2" data-bind="visible: Flag() != '' && Flag() != null">
             <div class="col-2">Flag</div><div class="small col-10">
                 <img class="img-thumbnail col-4" data-bind="attr:{src: Flag}"><br />
                 <i class="fa fa-link"></i> [<a class="link text-decoration-none" data-bind="attr: { href: Flag }, text: Flag" target="_blank"></a>]
             </div>
+        </div>
+        <!-- /ko -->
+        <!-- ko if: Teams().length != 0 -->
+        <div class="pt-3 border-top border-bottom mb-3">
+            <h4><span data-bind="text: 'List of Teams playing in ' + Name()"></h4>
+        </div>
+        <div class="row g-2 m-auto" data-bind="foreach: TeamsChunked">
+            <!-- ko foreach: $data-->
+            <!-- ko if: StateId == $root.Id()-->
+            <div class="col-3 m-auto">
+                <div class="border rounded py-1 px-2 small">
+                    <a class="text-center nav-link" data-bind="attr: {href: './teamDetails.html?id=' + Id + '&acronym=' + Acronym}">
+                        <div class="row">
+                            <img data-bind="attr: {src: Logo}">
+                        </div>
+                        <div class="row">
+                        </div>
+                        <span data-bind="text:Name"></span>
+                    </a>
+                </div>
+            </div>
+            <!-- /ko -->
+            <!-- /ko -->
         </div>
         <!-- /ko -->
         <a href="./states.html" class="btn btn-default btn-sm small"><i class="fa fa-list"></i> Back to List</a>
@@ -69,12 +122,12 @@
         </div>
     </div>
     <!-- End of Work Area -->
-    <nav class="navbar navbar-dark bg-dark fixed-bottom">
+    <nav class="navbar fixed-bottom border-top bg-body-tertiary">
         <div class="container small">
-            <div class="navbar-text">&copy;  Introdução as Tecnologias Web - 2023/24</div>
-            <div class="navbar-text">Made with <i class="fa fa-heart-o text-danger"></i> for U by <a href="mailto:jsp@ua.pt" class="text-decoration-none text-muted">jsp@ua.pt</a>.</div>
+            <div class="navbar-text">&copy;  Introdução às Tecnologias Web - 2023/24</div>
+            <div class="navbar-text">Made with <i class="fa-solid fa-heart text-danger"></i> by Miguel Neto and Tiago Quintas.</div>
             <div class="navbar-nav">
-                <div class="nav-item text-end"><a href="https://www.ua.pt" class="nav-link">Universidade de Aveiro</a></div>
+                <div style="--color: rgb(25,135,84)" class="nav-item text-end"><a href="https://www.ua.pt" class="nav-link">Universidade de Aveiro</a></div>
             </div>
         </div>
     </nav>
