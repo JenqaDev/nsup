@@ -12,12 +12,14 @@ var vm = function () {
     //---Variáveis locais
     var self = this;
     self.baseUri = ko.observable('http://192.168.160.58/NBA/API/Seasons/');
+    self.statUri = ko.observable('http://192.168.160.58/NBA/API/Statistics/Top5RankedPlayerByRegularSeason');
     self.displayName = 'NBA Season Details';
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
     //--- Data Record
     self.Id = ko.observable(0);
     self.Season = ko.observable('');
+    self.TopFive = ko.observable([]);
     self.Teams = ko.observable([]);
     self.TeamsChunked = ko.computed(function(){
         return self.Teams().chunk(4);
@@ -33,6 +35,10 @@ var vm = function () {
             self.Id(data.Id);
             self.Season(data.Season);
             self.Teams(data.Teams);
+            ajaxHelper(self.statUri(), 'GET').done(function (stat) {
+                self.TopFive(stat);
+                console.log(stat)
+            });
         });
     };
 
