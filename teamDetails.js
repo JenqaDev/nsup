@@ -1,3 +1,11 @@
+Array.prototype.chunk = function (chunkSize) {
+    var array = this;
+    return [].concat.apply([],
+    array.map(function (elem, i) {
+        return i % chunkSize ? [] : [array.slice(i, i + chunkSize)];
+    }));
+}
+
 // ViewModel KnockOut
 var vm = function () {
     console.log('ViewModel initiated...');
@@ -20,6 +28,11 @@ var vm = function () {
     self.City = ko.observable('');
     self.History = ko.observable('');
     self.Logo = ko.observable('');
+    self.Seasons = ko.observable([]);
+    self.SeasonsChunked = ko.computed(function(){
+        return self.Seasons().chunk(4);
+    });
+
 
     //--- Page Events
     self.activate = function (id, acronym) {
@@ -41,6 +54,7 @@ var vm = function () {
             self.StateName(data.StateName);
             self.Logo(data.Logo);
             self.History(data.History);
+            self.Seasons(data.Seasons);
         });
     };
 

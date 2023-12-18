@@ -1,3 +1,11 @@
+Array.prototype.chunk = function (chunkSize) {
+    var array = this;
+    return [].concat.apply([],
+    array.map(function (elem, i) {
+        return i % chunkSize ? [] : [array.slice(i, i + chunkSize)];
+    }));
+}
+
 // ViewModel KnockOut
 var vm = function () {
     console.log('ViewModel initiated...');
@@ -11,7 +19,10 @@ var vm = function () {
     self.Id = ko.observable('');
     self.Name = ko.observable('');
     self.Flag = ko.observable('');
-
+    self.Teams = ko.observable([]);
+    self.TeamsChunked = ko.computed(function(){
+        return self.Teams().chunk(4);
+    });
     //--- Page Events
     self.activate = function (id) {
         console.log('CALL: getState...');
@@ -22,6 +33,7 @@ var vm = function () {
             self.Id(data.Id);
             self.Name(data.Name);
             self.Flag(data.Flag);
+            self.Teams(data.Teams);
         });
     };
 
