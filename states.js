@@ -1,7 +1,9 @@
+var favs = {};
 var vm = function () {
     console.log('ViewModel initiated...');
     //---Variáveis locais
     var self = this;
+    var fav_records;
     self.baseUri = ko.observable('http://192.168.160.58/NBA/API/States');
     self.teams = ko.observable('http://192.168.160.58/NBA/API/Teams/Search')
     self.displayName = 'NBA States List';
@@ -9,6 +11,7 @@ var vm = function () {
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
     self.records = ko.observableArray([]);
+    self.favRecords = ko.observableArray([]);
     self.currentPage = ko.observable(1);
     self.pagesize = ko.observable(20);
     self.totalRecords = ko.observable(50);
@@ -57,16 +60,47 @@ var vm = function () {
             self.pagesize(data.PageSize)
             self.totalPages(data.TotalPages);
             self.totalRecords(data.TotalRecords);
+            fav_records = data.Records;
             console.log(data.TotalRecords);
-            //self.SetFavourites();
         });
-        //console.log('CALL: countTeams...');
-        //var teamCount = self.teams() + "?q=" + "StateId";
-        //ajaxHelper(teamCount, 'GET').done(function (data) {
-            //console.log(data)
-        //    hideLoading();
-        //});
-        //console.log(teamCount);
+    };
+
+    self.update = function() {
+        var lst = [];
+        for (var rec in favs) {
+            lst.push(favs[rec])
+        }
+        self.favRecords(lst);
+    }
+    self.recoverFavs = function() {
+        if (localStorage.getItem("states_favs")) {
+            favs = JSON.parse(localStorage.getItem("states_favs"))
+            for (var id in favs) {
+                $(`#${id}`).find("i").toggleClass("fa-heart text-danger");
+                $(`#${id}`).find("i").toggleClass("fa-heart-o");
+            }
+            self.update()
+        }
+    }
+    self.favReady = function() {
+        $('[id^="favourite_"]').on('click', e => {
+            $(e.target).find("i").toggleClass("fa-heart text-danger");
+            $(e.target).find("i").toggleClass("fa-heart-o");
+            var id = e.target.id;
+            if (id in favs) {
+                delete favs[id]
+            } else {
+                var rec_id = id.slice(10)
+                for (var rec of fav_records) {
+                    if (rec.Id == rec_id) {
+                        favs[id] = rec;
+                        break;
+                    }
+                }
+            }
+            localStorage.setItem("states_favs", JSON.stringify(favs))
+            self.update()
+        })
     };
 
     //--- Internal functions
@@ -130,9 +164,11 @@ var vm = function () {
     console.log("VM initialized!");
 };
 
+var nvm;
 $(document).ready(function () {
     console.log("ready!");
-    ko.applyBindings(new vm());
+    nvm = new vm();
+    ko.applyBindings(nvm);
 
     if (localStorage.getItem('bs-mode') != null){
         if (localStorage.getItem('bs-mode') == 'light'){
@@ -233,4 +269,6 @@ function ajaxHelper(uri, method, data) {
 
 $(document).ajaxComplete(function (event, xhr, options) {
     $("#myModal").modal('hide');
+    nvm.recoverFavs();
+    nvm.favReady();
 })

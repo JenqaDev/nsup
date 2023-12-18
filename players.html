@@ -31,6 +31,7 @@
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="teams.html"><i class="fa-regular fa-flag text-danger"></i><span class="text-danger"> Teams</span></a></li>
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="states.html"><i class="fa fa-map-marker text-success"></i><span class="text-success"> States</span></a></li>
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="seasons.html"><i class="fa-regular fa-bookmark text-info "></i><span class="text-info"> Seasons</span></a></li>
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="game.html"><i class="fa fa-magic" title="The party continues..."></i> Game</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" aria-current="page" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fa-solid fa-circle-info" title="The party continues..."></i> More info
@@ -74,6 +75,7 @@
                 <input id="tags" class="form-control me-2" type="text" placeholder="Search" aria-label="Search">
             </div>
             <div class="col-1"></div>
+            <button type="button" class="float-end btn btn-default col-1" data-bs-toggle="modal" data-bs-target="#favorites">Favorites</button>
         </div>
         <!-- ko if:records().length > 0 -->
         <div class="row small">
@@ -149,12 +151,78 @@
                     <td class="align-middle" data-bind="text:Weight"></td>
                     <td class="text-end">
                         <a class="btn btn-default btn-light btn-xs" data-bind="attr: { href:'./playerDetails.html?id=' + Id }"><i class="fa fa-eye" title="Show details"></i></a>
-                        <button class="btn btn-default btn-xs"><i class="fa fa-heart-o" data-bind="attr : { 'id': 'favourite_' + Id }" title="Add to favorites"></i></button>
+                        <button class="btn btn-default btn-xs" data-bind="attr : { 'id': 'favourite_' + Id }" title="Add to favorites"><i class="fa fa-heart-o ignore-clicks"></i></button>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
+    <!-- Favorites Modal -->
+    <div class="modal fade" id="favorites" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="favorites" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="favoritesLabel">Favorites</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-hover table-striped table-sm small">
+                    <thead class="table-secondary">
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Birthdate</th>
+                            <th scope="col">Draft Year</th>
+                            <th scope="col">Height</th>
+                            <th scope="col">Weight</th>
+                            <th scope="col">School</th>
+                            <th scope="col" class="text-center">Photo</th>
+                            <th scope="col">Country</th>
+                            <th scope="col">Position</th>
+                            <th scope="col" class="text-right"></th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: favRecords">
+                        <tr>
+                            <td class="align-middle" data-bind="text:Name"></td>
+                            <!-- ko if: Birthdate -->
+                            <td class="align-middle" data-bind="text:Birthdate.replace(/T.*$/, '').replaceAll(/-/gi, '/')"></td>
+                            <!-- /ko -->
+                            <!-- ko ifnot: Birthdate -->
+                            <td></td>
+                            <!-- /ko -->
+                            <td class="align-middle" data-bind="text:DraftYear"></td>
+                            <td class="align-middle" data-bind="text:Height"></td>
+                            <td class="align-middle" data-bind="text:Weight"></td>
+                            <td class="align-middle" data-bind="text:School"></td>
+                            <!-- ko if: Photo -->
+                            <td class="text-center">
+                                <a class="nav-link" target="_blank" data-bind="attr: {href: Photo}"><i class="fa-regular fa-image"></i></a>
+                            </td>
+                            <!-- /ko -->
+                            <!-- ko ifnot: Photo -->
+                            <td></td>
+                            <!-- /ko -->
+                            <!-- ko if: Photo -->
+                            <td class="align-middle"><span data-bind="text:CountryName"></span>, <span data-bind="text:CountryId"></span></td>
+                            <!-- /ko -->
+                            <!-- ko ifnot: Photo -->
+                            <td></td>
+                            <!-- /ko -->
+                            <td class="align-middle" data-bind="text:Weight"></td>
+                            <td class="text-end">
+                                <a class="btn btn-default btn-light btn-xs" data-bind="attr: { href:'./playerDetails.html?id=' + Id }"><i class="fa fa-eye" title="Show details"></i></a>
+                                <button class="btn btn-default btn-xs"><i class="fa fa-heart-o" data-bind="attr : { 'id': 'favourite_' + Id }" title="Add to favorites"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">

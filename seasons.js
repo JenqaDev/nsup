@@ -1,14 +1,16 @@
-// ViewModel KnockOut
+var favs = {};
 var vm = function () {
     console.log('ViewModel initiated...');
     //---Variáveis locais
     var self = this;
+    var fav_records;
     self.baseUri = ko.observable('http://192.168.160.58/NBA/API/Seasons');
     self.statUri = ko.observable('http://192.168.160.58/NBA/API/Statistics/NumPlayersBySeason');
     self.displayName = 'NBA Seasons List';
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
     self.records = ko.observableArray([]);
+    self.favRecords = ko.observableArray([]);
     self.players = ko.observableArray([]);
     self.both = ko.observableArray([]);
     self.currentPage = ko.observable(1);
@@ -59,9 +61,48 @@ var vm = function () {
             self.pagesize(data.PageSize)
             self.totalPages(data.TotalPages);
             self.totalRecords(data.TotalRecords);
+            fav_records = data.Records;
             console.log(data.Records);
         });
 
+    };
+
+    self.update = function() {
+        var lst = [];
+        for (var rec in favs) {
+            lst.push(favs[rec])
+        }
+        self.favRecords(lst);
+    }
+    self.recoverFavs = function() {
+        if (localStorage.getItem("seasons_favs")) {
+            favs = JSON.parse(localStorage.getItem("seasons_favs"))
+            for (var id in favs) {
+                $(`#${id}`).find("i").toggleClass("fa-heart text-danger");
+                $(`#${id}`).find("i").toggleClass("fa-heart-o");
+            }
+            self.update()
+        }
+    }
+    self.favReady = function() {
+        $('[id^="favourite_"]').on('click', e => {
+            $(e.target).find("i").toggleClass("fa-heart text-danger");
+            $(e.target).find("i").toggleClass("fa-heart-o");
+            var id = e.target.id;
+            if (id in favs) {
+                delete favs[id]
+            } else {
+                var rec_id = Number(id.slice(10))
+                for (var rec of fav_records) {
+                    if (rec.Id == rec_id) {
+                        favs[id] = rec;
+                        break;
+                    }
+                }
+            }
+            localStorage.setItem("seasons_favs", JSON.stringify(favs))
+            self.update()
+        })
     };
     
     //--- Internal functions
@@ -125,40 +166,11 @@ var vm = function () {
     console.log("VM initialized!");
 };
 
+var nvm;
 $(document).ready(function () {
     console.log("ready!");
-    var nvm = new vm();
+    nvm = new vm();
     ko.applyBindings(nvm);
-
-    $(document).on('click', "[id^='favourite_']", event => {
-        var id = $(event.target).parents()[1].firstElementChild.innerHTML;
-        
-        var fid = 'favourite_' + id
-        var favorites = localStorage.getItem("favorites");
-        
-        if (!favorites) {
-            console.log("adding fav")
-            localStorage.setItem("season_fav_" + id, id);
-        }else{
-            localStorage.removeItem("season_fav_" + id, id);
-        }
-
-        if (favorites["Id"].includes(season)){
-            console.log("removing " + season)
-            $('#'+fid + ' i').removeClass("fa-heart text-danger");
-            $('#'+fid + ' i').addClass("fa-heart-o");
-            for (var key in favorites["Id"]) {
-                if (favorites["Id"][key] == season) delete favorites["Id"][key];
-            }
-        }else{
-            $('#'+fid + ' i').removeClass("fa-heart-o");
-            $('#'+fid + ' i').addClass("fa-heart text-danger");
-            favorites.Id.push(season);
-            console.log("adding " + season)
-        }
-        
-        localStorage.setItem("favorites", JSON.stringify(favorites));
-    });
 
     if (localStorage.getItem('bs-mode') != null){
         if (localStorage.getItem('bs-mode') == 'light'){
@@ -242,17 +254,8 @@ function ajaxHelper(uri, method, data) {
 
 $(document).ajaxComplete(function (event, xhr, options) {
     $("#myModal").modal('hide');
-    
-    /*var favorites = localStorage.getItem("favorites")
-    favorites = JSON.parse(favorites);
-    console.log(favorites["Id"])
-    for (var fv in favorites["Id"]){
-        if (favorites["Id"][fv] != null){
-            item = 'favourite_'+favorites["Id"][fv]
-            $('#' + item + ' i').addClass("fa-heart text-danger").removeClass("fa-heart-o");
-            console.log("found " + item)
-        }
-    }*/
+    nvm.recoverFavs();
+    nvm.favReady();
 });
 
 
