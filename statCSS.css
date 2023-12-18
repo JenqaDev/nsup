@@ -3,6 +3,9 @@ body {
     margin: 64px 0 56px 0;
 }
 
+.ignore-clicks {
+    pointer-events: none;
+}
 /* button default
 ---------------------------- */
 .btn-default {
