@@ -1,0 +1,157 @@
+:root {
+	--rad: 50px;
+}
+
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 18pt;
+    color: white;
+	background: url("court.jpg") no-repeat;
+    background-position: center;
+    background-size: cover;
+	margin:0;
+	width: 100%;
+	height: 95svh;
+}
+
+.ball {
+	width: calc(var(--rad)*2);
+	aspect-ratio: 1;
+	background:radial-gradient(rgb(226, 132, 49), rgb(122, 77, 13));
+	border-radius: 50%;
+	transform: translate(-50%, -50%);
+	position: absolute;
+	inset: var(--top, 75%) var(--left, 25%);
+}
+
+.bar {
+    height: 20px;
+    width: calc(var(--rad)*2 + 60px);
+    background-color: firebrick;
+    position: absolute;
+    inset: 35% 60%;
+    transform: translateY(-50%);
+    z-index: 8;
+}
+
+.box {
+    width: 20px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: var(--color, firebrick);
+    position: absolute;
+    inset: var(--box-top, 50%) var(--box-left, 50%);
+    transform: translate(-50%, -50%);
+}
+
+.b-1 {
+    --box-top: 35%;
+    --box-left: 60%;
+}
+
+.b-2 {
+    --box-top: 35%;
+    --box-left: calc(60% + var(--rad)*2 + 60px);
+}
+
+.b-3 {
+    --box-top: 5%;
+    --box-left: 78%;
+    --color: white;
+}
+
+.b-4 {
+    --box-top: 45%;
+    --box-left: 78%;
+    --color: white;
+}
+
+.backboard {
+    z-index: 2;
+    height: 40%;
+    width: 20px;
+    position: absolute;
+    inset: 5% 78%;
+    background-color: white;
+    transform: translateX(-50%);
+}
+
+.rig-1 {
+    z-index: -1;
+    position: absolute;
+    inset: 35% 71%;
+    height: 20px;
+    width: 8%;
+    background-color: grey;
+    border-radius: 2rem;
+    transform: rotateZ(25deg) translateY(90%);
+}
+
+.rig-2 {
+    z-index: -1;
+    position: absolute;
+    inset: 35% 71%;
+    height: 20px;
+    width: 7%;
+    background-color: grey;
+    border-radius: 2rem;
+    transform: translateY(-50%);
+}
+
+.rig-3 {
+    z-index: 1;
+    position: absolute;
+    inset: 35% 78%;
+    height: 75px;
+    width: 18%;
+    background-color: darkblue;
+    transform: translateY(-50%);
+}
+
+.rig-4 {
+    z-index: 1;
+    position: absolute;
+    inset: 35% 91%;
+    height: 65%;
+    width: 5%;
+    background-color: darkblue;
+}
+
+.again {
+    z-index: 5;
+    position: absolute;
+    inset: 34% 81%;
+    height: 20px;
+    width: 50px;
+}
+
+.banner {
+    position: absolute;
+    z-index: 10;
+    inset: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 8rem;
+    height: fit-content;
+    width: fit-content;
+}
+
+.score-banner {
+    position: absolute;
+    z-index: 10;
+    inset: 0% 50%;
+    transform: translateX(-50%);
+    font-size: 6rem;
+    height: fit-content;
+    width: fit-content;
+}
+
+.net {
+    height: auto;
+    width: calc(var(--rad)*2 + 60px);
+    background: url("net.png") no-repeat;
+    background-position: top;
+    background-size: contain;
+    position: absolute;
+    inset: calc(35% - 2px) 60%;
+    z-index: 4;
+}

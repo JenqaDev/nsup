@@ -33,6 +33,7 @@
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="teams.html"><i class="fa-regular fa-flag text-danger"></i><span class="text-danger"> Teams</span></a></li>
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="states.html"><i class="fa fa-map-marker text-success"></i><span class="text-success"> States</span></a></li>
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="seasons.html"><i class="fa-regular fa-bookmark text-info "></i><span class="text-info"> Seasons</span></a></li>
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="game.html"><i class="fa fa-magic" title="The party continues..."></i> Game</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" aria-current="page" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fa-solid fa-circle-info" title="The party continues..."></i> More info
@@ -155,17 +156,15 @@
                           <th></th>
                       </tr>
                   </thead>
-                  <tbody>
-                      <tr id="favList">
-                          <td class="align-middle" data-bind="text:"></td>
-                          <td class="align-middle" data-bind="text:"></td>
-                          <td class="align-middle" data-bind="text:''"></td>
-                          <td class="text-end">
-                              <a class="btn btn-default btn-light btn-xs" data-bind="attr: { href:'./seasonDetails.html?id=' + '' }"><i class="fa fa-eye" title="Show details"></i></a>
-                              <button class="btn btn-default btn-xs" data-bind="attr : { 'id': 'favourite_' + '' }" title="Add to favorites"><i class="fa fa-heart-o ignore-clicks"></i></button>
-                          </td>
-                      </tr>
-                  </tbody>
+                  <tbody data-bind="foreach: favRecords">
+                    <tr>
+                        <td class="align-middle" data-bind="text:Id"></td>
+                        <td class="align-middle" data-bind="text:Season"></td>
+                        <td class="text-end">
+                            <a class="btn btn-default btn-light btn-xs" data-bind="attr: { href:'./seasonDetails.html?id=' + Id }"><i class="fa fa-eye" title="Show details"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
               </table>
           </div>
           <div class="modal-footer">
