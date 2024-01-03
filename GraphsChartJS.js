@@ -2,25 +2,35 @@
 
 $('document').ready(function () {
     const ctx = document.getElementById('myChart');
+    const plfctx = document.getElementById('playoffChart');
 
     ajaxHelper(composedUri, 'GET').done(function (stats) {
         // Interact with the data returned
         var myLabels = [];
         var myData = [];
+        var evenLabels = [];
+        var evenData = [];
+        var i = 0
         $.each(stats, function (index, item) {
-            myLabels.push(item.Season);
-            myData.push(item.Players);
+            if(i%2!=0) {
+                myLabels.push(item.Season);
+                myData.push(item.Players);
+            }
+            else {
+                evenLabels.push(item.Season);
+                evenData.push(item.Players);
+            }
+            i++;
         })
 
-        console.log(myLabels, myData)
         // Instantiate and draw our chart, passing in some options.
         new Chart(ctx, {
             type: 'line',
-            title: 'wha',
+            title: 'Regulars',
             data: {
                 labels: myLabels,
                 datasets: [{
-                    label: 'Number of Athletes',
+                    label: 'Number of Players',
                     data: myData,
                     borderWidth: 1
                 }]
@@ -32,7 +42,7 @@ $('document').ready(function () {
                         display: true,
                         labels: { align: 'start', font: { family: 'Open Sans' } },
                         title: {
-                            display: true, text: ['Statistics', 'Number of Athletes per Season'], padding: { top: 10, bottom: 10 }, font: { size: 12, family: 'Open Sans' }
+                            display: true, text: ['Statistics', 'Number of Players per Regular Season'], padding: { top: 10, bottom: 10 }, font: { size: 12, family: 'Open Sans' }
                         },
                     }
                 },
@@ -46,6 +56,43 @@ $('document').ready(function () {
                         beginAtZero: true, 
                         ticks: {
                             font: { family: 'Open Sans', color: '#800', size: 8, width: 200 } ,
+                        }
+                    }
+                }
+            }
+        });
+        new Chart(plfctx, {
+            type: 'line',
+            title: 'Playoffs',
+            data: {
+                labels: evenLabels,
+                datasets: [{
+                    label: 'Number of Players',
+                    data: evenData,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        labels: { align: 'start', font: { family: 'Open Sans' } },
+                        title: {
+                            display: true, text: ['Statistics', 'Number of Players per Playoff Season'], padding: { top: 10, bottom: 10 }, font: { size: 12, family: 'Open Sans' }
+                        },
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            font: { family: 'Open Sans', color: '#ff1717' } ,
+                        }
+                    },
+                    y: {
+                        beginAtZero: true, 
+                        ticks: {
+                            font: { family: 'Open Sans', color: '#ff1717', size: 8, width: 200 } ,
                         }
                     }
                 }
