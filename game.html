@@ -14,9 +14,9 @@
     <link rel="stylesheet" href="myCSS.css" />
 </head>
 <body>
-    <nav class="navbar bg-body-tertiary navbar-expand-lg sticky-top">
+    <nav class="navbar bg-body-tertiary navbar-expand-lg fixed-top border-bottom">
         <div class="container">
-            <a class="navbar-brand" href="index.html" tabindex="NBA"><img src="NBA_logoH.png" height="48" /></a>
+            <a class="navbar-brand" href="index.html" tabindex="NBA"><img src="NBA_logoH.png" height="36" /></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -28,6 +28,18 @@
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="states.html"><i class="fa fa-map-marker text-success"></i><span class="text-success"> States</span></a></li>
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="seasons.html"><i class="fa-regular fa-bookmark text-info "></i><span class="text-info"> Seasons</span></a></li>
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="game.html"><i class="fa fa-magic" title="The party continues..."></i> Game</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" aria-current="page" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-circle-info" title="The party continues..."></i> More info
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="GraphsChartJS.html">Graphs</a></li>
+                            <li><a class="dropdown-item" href="conferences.html">Conferences</a></li>
+                            <li><a class="dropdown-item" href="divisions.html">Divisions</a></li>
+                            <li><a class="dropdown-item" href="plrpositions.html">Player Positions</a></li>
+                            <li><a class="dropdown-item" href="ssntypes.html">Season Types</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <ul id="bd-themer" class="navbar-nav justify-content-end">
                     <li id="ld-dark"class="px-2 navbar-text">
@@ -51,8 +63,17 @@
         </div>
     </nav>
     <div class="container">
-        <div class="embed-responsive embed-responsive-16by9">
-            <iframe class="embed-responsive-item" src="game/index.html" style="width: 100%; min-height: 90vh;"></iframe>
+        <div>
+            <h1>Minigame - Basketball</h1>
+            <hr>
+            <h3>Instructions:</h3>
+            <p>Your only goal is to increase your score by throwing the ball towards the basket!<br>
+            <b>Hold the <u>left mouse button</u></b> on top of the ball to grab it, and <b>while holding move your mouse</b> quickly enough to provide de desired trajectory.</p>
+            <p style="text-align:right;"><small>PROTIP: Holding the <i>left mouse button</i> before grabbing the ball will let you pick it up easily if you're quick enough with the mouse movement.<br>
+                <b>This is very useful to catch it mid-air in case you fail the basket!</b></small></p>
+        </div>
+        <div class="embed-responsive embed-responsive-16by9 mt-3">
+            <iframe class="embed-responsive-item rounded-5" src="game/index.html" style="width: 100%; min-height: 90vh;"></iframe>
         </div>
     </div>
     <nav class="navbar bg-body-tertiary border-top fixed-bottom">
